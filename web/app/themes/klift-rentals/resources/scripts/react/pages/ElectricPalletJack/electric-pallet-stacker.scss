@@ -1,0 +1,58 @@
+.electric-pallet-stacker-page {
+  .electric-pallet-stacker-info {
+    // width: 60rem;
+
+    .product-overview {
+      width: 10rem;
+      transform: translateX(100%);
+      transition: all 0.35s;
+      z-index: 99999999;
+      right: 66rem;
+      @media (max-width: 1400px) {
+        right: 61rem;
+      }
+      @media (max-width: 1200px) {
+        right: 53.5rem;
+      }
+      @media (max-width: 1200px) {
+        right: 53.5rem;
+      }
+      @media (max-width: 991px) {
+        right: 41rem;
+      }
+    }
+    .general-info {
+      width: 10rem;
+      transition: all 0.35s;
+      transform: translateX(-100%);
+      z-index: 99999999;
+      right: 27rem;
+
+      @media (max-width: 1400px) {
+        right: 21rem;
+      }
+      @media (max-width: 1200px) {
+        right: 14.2rem;
+      }
+      @media (max-width: 991px) {
+        right: 6.5rem;
+      }
+    }
+    .dimension-drawing {
+      width: 10rem;
+      transition: all 0.35s;
+      transform: translateX(-100%);
+      z-index: 99999999;
+      right: 5rem;
+      @media (max-width: 1400px) {
+        right: -1rem;
+      }
+      @media (max-width: 1200px) {
+        right: -5.8rem;
+      }
+      @media (max-width: 991px) {
+        right: -8.2rem;
+      }
+    }
+  }
+}

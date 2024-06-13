@@ -1,0 +1,58 @@
+@use "../../../../styles/variables" as *;
+
+
+.home-page {
+  .contact-us-banner {
+    width: 100%;
+    position: relative;
+    min-height: 56rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @media (max-width: 768px) {
+      min-height: 38rem;
+    }
+
+    .contact-us-content {
+      width: 75%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+
+      &-data {
+        padding: 4rem;
+        @media (max-width: 768px) {
+          padding: 2rem 1.5rem;
+        }
+      }
+    }
+  }
+
+  .categories-section {
+    .category-line {
+      position: absolute;
+      width: 50%;
+      border-bottom: 3px solid $primary-500;
+      bottom: 0;
+      border-radius: 10px;
+      transition: all 0.1s;
+    }
+    .category-list-item {
+      list-style: none;
+      color: rgba($secondary-500, 0.6);
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        color: rgba($secondary-500, 0.8);
+      }
+
+      &.selected {
+        color: rgba($secondary-500, 1);
+        text-decoration: underline;
+      }
+    }
+  }
+}

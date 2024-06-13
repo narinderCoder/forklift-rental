@@ -1,0 +1,70 @@
+@use "../../../../styles/variables" as *;
+
+.products-page {
+  margin: 7rem auto;
+  padding: 0.5rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+
+  @media (max-width: 768px) {
+    gap: 2.5rem;
+  }
+  .product-filters {
+    position: relative;
+    margin: auto;
+
+    height: 100%;
+    gap: 2.5rem;
+    padding: 1rem;
+    background-color: rgba($secondary-500, 0.05);
+    border-radius: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .products-filter-icon-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      @media (max-width: 768px) {
+        gap: 0.5rem;
+      }
+    }
+
+    .product-filters-button {
+      background-color: $primary-500;
+      color: $white;
+      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      margin-inline-start: auto;
+      @media (max-width: 991px) {
+        margin-inline-start: 0;
+        margin-inline-end: auto;
+      }
+    }
+  }
+  .product-side-filters {
+    .bg-5 {
+      background-color: rgba($secondary-500, 0.05);
+    }
+    .filter-options {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.25s;
+      &.open {
+        max-height: 100rem;
+      }
+    }
+  }
+  .search-input {
+    border: 1px solid rgba($secondary-500, 0.3);
+    min-height: 2rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+}

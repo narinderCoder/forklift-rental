@@ -1,0 +1,61 @@
+@use "./variables" as *;
+
+$theme-colors: (
+  "primary": $primary-500,
+  "primary-alt": $primary-900,
+  "secondary": $secondary-500,
+  "tertiary": $tertiary-500,
+  "danger": $danger
+);
+
+$spacer: 1rem;
+
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  10: $spacer * 2.5,
+  20: $spacer * 5,
+);
+
+$utilities: (
+  "text-opacity": (
+    css-var: true,
+    class: text-opacity,
+    values: (
+      0: 0,
+      5: 0.05,
+      10: 0.1,
+      20: 0.2,
+      30: 0.3,
+      40: 0.4,
+      50: 0.5,
+      60: 0.6,
+      70: 0.7,
+      80: 0.8,
+      90: 0.9,
+      100: 1,
+    ),
+  ),
+  "bg-opacity": (
+    css-var: true,
+    class: bg-opacity,
+    values: (
+      0: 0,
+      5: 0.05,
+      10: 0.1,
+      20: 0.2,
+      30: 0.3,
+      40: 0.4,
+      50: 0.5,
+      60: 0.6,
+      70: 0.7,
+      80: 0.8,
+      90: 0.9,
+      100: 1,
+    ),
+  ),
+);

@@ -1,0 +1,710 @@
+@use "./bootstrap" as *;
+@use "./variables" as *;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import "bootstrap/scss/bootstrap";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif !important;
+  line-height: 1.5;
+  font-weight: 400;
+  display: block;
+  overflow-x: hidden !important;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+}
+
+.border-opacity-20 {
+  border: 1px solid rgba($primary-500, 0.2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: Inter !important;
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
+}
+
+.slick-product-dots {
+  display: flex !important;
+  overflow-x: scroll;
+  margin: 1rem 3rem;
+  padding: 0;
+
+  li {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  &::-webkit-scrollbar {
+    display: none; /* WebKit browsers (Chrome, Safari) */
+  }
+}
+
+.mb-custom {
+  margin-bottom: 3.5rem;
+}
+
+.hover-primary {
+  &:hover {
+    color: $primary-500;
+    svg {
+      color: $primary-500;
+    }
+  }
+}
+
+.custom-navbar {
+  padding: 1.25rem 0.5rem;
+}
+
+.h1 {
+  font-family: Inter;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 100px;
+  @media (max-width: 768px) {
+    font-size: 64px;
+  }
+}
+
+.h2-alt {
+  font-family: Inter;
+  font-size: 36px; /* 36px */
+  line-height: 40px; /* 40px */
+  font-weight: 700;
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+.h2 {
+  font-family: Inter;
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 80.8px;
+  @media (max-width: 768px) {
+    font-size: 48px;
+  }
+}
+
+.h3 {
+  font-family: Inter;
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 64px;
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+}
+
+.h4 {
+  font-family: Inter;
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 50px;
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+}
+
+.h5 {
+  font-family: Inter;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 40px;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.h6 {
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.p1 {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.p2 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.p3 {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.btn-primary {
+  @apply d-flex flex-row align-items-center p1;
+  color: $secondary-500;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  gap: 0.75rem;
+  padding: 0.75rem 2rem;
+  border-radius: 10px;
+  min-width: 5rem;
+  border: 1px solid rgba($secondary-500, 0.2);
+  cursor: pointer;
+  &:disabled {
+   opacity: 0.7;
+   cursor: not-allowed
+  }
+}
+
+.btn-secondary {
+  @apply d-flex align-items-center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 14px;
+  border: 1px solid rgba($secondary-500, 0.2);
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-none {
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+}
+
+.product-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+  gap: 0.5rem;
+  border: 1px solid rgba($secondary-500, 0.4);
+  padding: 0.75rem 0.5rem;
+  color: $secondary-500;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  &:hover {
+    border-color: $primary-500;
+    background-color: $tertiary-500;
+  }
+  &:active {
+    border-color: $primary-500;
+    background-color: $tertiary-500;
+  }
+}
+
+.product-slider-container {
+  width: 100%;
+  .product-slider-extra-container {
+    width: 7rem;
+    height: 7rem;
+    @media (max-width: 768px) {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  .product-slider-extra {
+    width: 6rem;
+    height: 6rem;
+    filter: brightness(1);
+    object-fit: cover;
+    aspect-ratio: 1;
+    @media (max-width: 768px) {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+
+  .product-slider-extra-selected {
+    width: 6.5rem;
+    height: 6.5rem;
+    filter: brightness(0.75);
+    object-fit: cover;
+    @media (max-width: 768px) {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.arrow-working {
+  cursor: pointer;
+}
+
+.arrow-not-working {
+  cursor: not-allowed;
+  color: $secondary-500;
+  opacity: 0.5;
+}
+
+.arrow-working-hover {
+  cursor: pointer;
+  &:hover {
+    color: $primary-500;
+  }
+}
+
+.quick-btn {
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba($secondary-500, 0.4);
+}
+
+.section {
+  padding: 3.75rem 0rem;
+  @media (max-width: 768px) {
+    padding: 1.75rem 0rem;
+  }
+}
+
+.section-alt {
+  padding: 7.5rem 0rem;
+  @media (max-width: 768px) {
+    padding: 3.75rem 0rem;
+  }
+}
+
+.expandable-card {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid rgba($secondary-500, 0.2);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-height: 3.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.expandable-card.open {
+  max-height: 100rem;
+  border: none;
+  box-shadow: 4px 4px 50px 0px rgba(0, 0, 0, 0.05);
+
+  .info {
+    color: rgba($secondary-500, 0.5);
+  }
+}
+
+.react-date-picker {
+  &__wrapper {
+    border: none !important;
+  }
+  .react-calendar__month-view__days__day--weekend {
+    color: rgba($primary-500, 0.6);
+  }
+
+  .react-calendar__navigation__prev2-button,
+  .react-calendar__navigation__next2-button {
+    display: none;
+  }
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  appearance: none;
+  background-color: $white;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 1px solid rgba($primary-500, 0.3);
+
+  &:checked {
+    background-color: $primary-500;
+    border: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    border: 1px solid #a8a29e;
+    background-color: 1px solid #a8a29e;
+  }
+}
+
+.checkbox-icon {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  display: none;
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.peer:checked ~ .show-on-checked {
+  display: block;
+}
+
+.compare-modal-container {
+  z-index: 99;
+  width: calc(100% - 1rem);
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid rgba($primary-500, 0.2);
+  border-radius: 8px;
+  height: 600px;
+}
+
+.home-slider-text {
+  top: 20rem;
+}
+
+.blog-card {
+  padding: 1.75rem;
+  border: 1px solid rgba($primary-500, 0.2);
+  border-radius: 10px;
+
+  .blog-card-main {
+    // grid grid-cols-1 md:grid-cols-8 xl:grid-cols-1
+    gap: 1rem;
+    position: relative;
+
+    .blog-card-date {
+      padding: 0;
+      position: absolute;
+      top: -1.75rem;
+      left: -0.25rem;
+      width: 4.75rem;
+      border: 1px solid rgba($secondary-500, 0.08);
+      background: rgba($secondary-500, 0.04);
+      border-top: 0;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      box-shadow: -4px 0px 10px 0px rgba(0, 0, 0, 0.05);
+
+      @media (max-width: 1200px) {
+        left: -1rem;
+      }
+
+      @media (max-width: 768px) {
+        left: auto;
+        right: 1rem;
+      }
+
+      &-heading {
+        width: 100%;
+        padding: 0.5rem;
+        text-align: center;
+        border-bottom: 2px solid rgba($primary-500, 0.2);
+      }
+    }
+    .blog-card-content {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1rem;
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.select-product-menu {
+  width: 14rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba($secondary-500, 0.2);
+  border-radius: 10px;
+  @media (max-width: 768px) {
+    width: 10rem;
+  }
+}
+
+.select-product-menu-electric {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba($secondary-500, 0.2);
+  border-radius: 10px;
+}
+
+.product-card {
+  color: $secondary-500;
+  &:hover {
+    box-shadow: 0px 12px 80px 0px rgba(0, 0, 0, 0.06);
+    color: $primary-500;
+  }
+}
+
+.hover-text-primary:hover {
+  color: $secondary-500;
+  &:hover {
+    color: $primary-500;
+  }
+}
+
+.input-primary {
+  @apply p1;
+  border: 1px solid rgba($secondary-500, 0.2);
+  color: $secondary-500;
+  padding: 14px 1.5rem;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+
+  &:hover {
+    border-color: rgba($secondary-500, 0.4);
+  }
+  &:focus {
+    border-color: rgba($secondary-500, 0.6);
+  }
+  &::placeholder {
+    color: rgba($black, 0.2);
+  }
+}
+
+.textarea-primary {
+  resize: none;
+  background: rgba($secondary-500, 0.05);
+  border: 1px solid rgba($secondary-500, 0.05);
+}
+
+.slick-dots-product-info.slick-dots {
+  li button {
+    background-color: white;
+    &::before {
+      font-size: 10px;
+      color: white;
+      border: 1px solid rgba($primary-500, 0.5) !important;
+      border-radius: 100%;
+      opacity: 1;
+    }
+  }
+  li.slick-active button {
+    background-color: white;
+    &::before {
+      content: "";
+      font-size: 12px;
+      color: white;
+      background-color: $primary-500;
+      border: 1px solid rgba($primary-500, 0.5);
+      border-radius: 100%;
+    }
+  }
+}
+
+.react-calendar__tile--now {
+  background-color: rgba($primary-500, 0.5) !important;
+  color: white;
+  border-radius: 8px;
+}
+
+.react-calendar__viewContainer {
+  padding: 1rem;
+}
+
+.react-calendar__tile--active {
+  background-color: rgba($primary-500, 1) !important;
+  border-radius: 8px;
+}
+
+.react-date-picker__inputGroup__input:invalid {
+  background: rgba($secondary-500, 0.05);
+}
+
+.react-date-picker__inputGroup__divider {
+  color: rgba($secondary-500, 0.6);
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.react-calendar button:enabled:hover {
+  border-radius: 8px;
+}
+
+input.react-date-picker__inputGroup__day {
+  text-align: center;
+}
+
+.react-date-picker__inputGroup__input {
+  &.react-date-picker__inputGroup__input--hasLeadingZero {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+input.react-date-picker__inputGroup__month {
+  text-align: center;
+}
+
+input.react-date-picker__inputGroup__year {
+  text-align: center;
+}
+
+.cart-sidebar {
+  width: 40%;
+  height: 100vh;
+  padding: 2.5rem;
+  transition: transform 0.3s ease;
+  z-index: 1100;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+.compare-modal {
+  height: 95vh;
+
+  .compare-modal-data {
+    height: 75vh;
+    @media (max-width: 768px) {
+      height: 65vh;
+    }
+    @media (max-width: 360px) {
+      height: 60vh;
+    }
+  }
+}
+
+.compare-product-spec-name {
+  height: 5.5rem;
+  @media (max-width: 768px) {
+    height: 7rem;
+  }
+}
+
+.new-forklift-for-sale-spacing {
+  margin-bottom: 7rem;
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.new-forklift-for-sale-gap {
+  gap: 3.75rem;
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+}
+
+.quote-form-modal-data {
+  height: calc(100% - 4rem);
+  overflow: scroll;
+  @media (max-width: 325px) {
+    height: calc(100% - 7rem);
+  }
+}
+
+.testimonial-slider-blockquote {
+  top: -2rem;
+}
+
+.w-90 {
+  width: 90% !important;
+}
+.product-loader{
+  position: fixed;
+  top: 0px;
+  left: 0;
+  /* transform: translate(-50%, -50%); */
+  width: 100%;
+  background: rgba(255, 255, 255, 0.51);
+  height: 100vh;
+  z-index: 9999999 !important;
+}
+
+.error-quote-form {
+  bottom: -1.5rem;
+}
+
+.gap-4-5 {
+  gap: 2rem !important;
+}
+
+.slider-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 7rem;
+
+  @media (max-width: 768px) {
+    height: 5rem;
+  }
+}

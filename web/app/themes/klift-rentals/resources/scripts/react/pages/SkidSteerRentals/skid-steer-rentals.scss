@@ -1,0 +1,70 @@
+@use "../../styles/variables" as *;
+
+.skid-steer-rentals-page {
+  .skid-steer-categories {
+    width: 44rem;
+    margin: auto;
+    font-weight: 500;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+
+    @media screen and (max-width: 768px) {
+      overflow: scroll;
+    }
+
+    .on-sale {
+      width: 10rem;
+      left: 18.2rem;
+      transform: translateX(100%);
+      transition: all 0.35s;
+      @media screen and (max-width: 768px) {
+        left: 20%;
+      }
+    }
+    .on-rent {
+      width: 10rem;
+      transition: all 0.35s;
+      transform: translateX(-100%);
+      right: 18rem;
+      @media screen and (max-width: 768px) {
+        right: auto;
+      }
+    }
+  }
+
+  .skid-steer-card {
+    border: 1px solid rgba($secondary-500, 0.2);
+    gap: 2.5rem;
+    padding: 2.5rem;
+    @media screen and (max-width: 768px) {
+      gap: 1rem;
+      padding: 1rem;
+    }
+  }
+
+  .skid-steer-image {
+    width: 16rem;
+    height: auto;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  .separator {
+    height: 20rem;
+    border-right: 1px solid;
+    border-color: rgba($secondary-500, 0.1);
+    @media screen and (max-width: 768px) {
+      height: 1px;
+      width: 100%;
+      border-bottom: 1px solid;
+    }
+  }
+
+  .skid-options {
+    gap: 2.5rem;
+
+    @media screen and (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+}

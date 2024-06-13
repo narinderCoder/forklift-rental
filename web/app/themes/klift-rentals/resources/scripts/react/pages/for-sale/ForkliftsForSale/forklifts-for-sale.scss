@@ -1,0 +1,19 @@
+@use '../../../../../styles/variables' as *;
+
+.forklifts-for-sale {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 0.5rem;
+  gap: 5rem;
+
+  .products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7rem;
+
+    @media (max-width: 768px) {
+      gap: 2.5rem;
+    }
+  }
+}

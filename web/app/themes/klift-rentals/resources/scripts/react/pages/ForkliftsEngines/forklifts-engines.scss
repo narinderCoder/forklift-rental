@@ -1,0 +1,17 @@
+@use "../../../../styles/variables" as *;
+
+.forklifts-engines-page {
+  .side-filters {
+    .bg-5 {
+      background-color: rgba($secondary-500, 0.05);
+    }
+    .filter-options {
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.25s;
+      &.open {
+        max-height: 100rem;
+      }
+    }
+  }
+}
