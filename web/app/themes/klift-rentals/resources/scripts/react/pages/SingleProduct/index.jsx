@@ -52,11 +52,11 @@ const SingleProduct = () => {
   const [types, setTypes] = useState([]);
   const [selectedVariation, setSelectedVariation] = useState([]);
 
-  const { cart, addItemToCart } = useContext(CartContext);
+  // const { cart, addItemToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
     const item = { id: 1, name: 'Product 1', price: 10 };
-    addItemToCart();
+    // addItemToCart();
   };
  
 
