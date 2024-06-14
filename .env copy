@@ -1,0 +1,28 @@
+DB_NAME='forklift'
+DB_USER='forklift'
+DB_PASSWORD='forklift@123'
+
+# Optionally, you can use a data source name (DSN)
+# When using a DSN, you can remove the DB_NAME, DB_USER, DB_PASSWORD, and DB_HOST variables
+# DATABASE_URL='mysql://database_user:database_password@database_host:database_port/database_name'
+
+# Optional database variables
+# DB_HOST='localhost'
+# DB_PREFIX='wp_'
+
+WP_ENV='development'
+WP_HOME='http://18.222.127.15/forklift-rental/web/'
+WP_SITEURL="${WP_HOME}/wp"
+
+# Specify optional debug.log path
+# WP_DEBUG_LOG='/path/to/debug.log'
+
+# Generate your keys here: https://roots.io/salts.html
+AUTH_KEY='lA,aJ?_LB(Hk|izHnX7{9yIdY!b0M^n#bL/90I7LF=,&KDUK,>Q@aNJLU-LO-_K|'
+SECURE_AUTH_KEY=']T5V>|y2pb$;9P`^]/Qcy9UHa}R=H13__m$!$Rn,z2O2H!LRy{ohPZeV}@WYZ^@W'
+LOGGED_IN_KEY='@AUJW;k)YzBR&/sy_X|yTj-V^nZZ_7[e!X}jRLh2->f2!3Pd+S1(j..@%G>)b[}>'
+NONCE_KEY=';=zu4-n}So%{E41rWgwEj3010.2ikp!(TqD/`$!#r0/#C<(lroL9IIl.FgfA#Mi2'
+AUTH_SALT='[4UQ9*TU03Nc4G*rqvFP+-mz}uf+$@eF%yBLy(K4|`e50Fm9u}!bttXFh>_:M,H+'
+SECURE_AUTH_SALT='M$ZFs]N0lK^8i{,_)zNYC_U/npKs^V[8jZA^:+#L}.MFvgPh_.bz(q@E{dnV5G[7'
+LOGGED_IN_SALT='xEC7YU?Tjq_)*=pCQUf51yk.!qY!JOK)Y.OOTo]r%&<m_]YImaxTrymV^A4aAvPw'
+NONCE_SALT='ZB;1$lfV>KyM|2FAS^RR1p]-hbUj|mF.NwrrDIlzu#GwoO`lQWc@,nvk,0V7d:en'
