@@ -1,6 +1,6 @@
 # Application
-web/app/plugins/*
-!web/app/plugins/.gitkeep
+# web/app/plugins/*
+# !web/app/plugins/.gitkeep
 web/app/mu-plugins/*/
 web/app/themes/twentytwentyfour/
 web/app/upgrade
@@ -11,13 +11,12 @@ web/app/cache/*
 # WordPress
 web/wp
 web/.htaccess
+temp_auto_push.bat
 
 # Logs
 *.log
 
 # Dotenv
-.env
-.env.*
 !.env.example
 
 # Composer
@@ -25,3 +24,8 @@ web/.htaccess
 
 # WP-CLI
 wp-cli.local.yml
+.gitignore
+temp_interactive_push.bat
+branch_structure.json
+config.bat
+node_modules
