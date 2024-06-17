@@ -56,8 +56,9 @@
 ?>
   <body data-cart="{{$cart_contents_count ?? 0}}" @php(body_class()) style="overflow-x:hidden">
     @include('sections.header')
+  
     @php(wp_body_open()) 
-    @yield('content') 
+    <div style="width:100% !important;min-height:400px;"> @yield('content') </div>
       @hasSection('sidebar')
         <aside class="sidebar">
           @yield('sidebar')
