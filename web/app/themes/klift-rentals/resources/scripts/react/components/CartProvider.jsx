@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-
+import EnvProvider from '@scripts/react/EnvVar';
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -7,7 +7,7 @@ const CartProvider = ({ children }) => {
 
   const fetchCartData = async () => {
     try {
-      const response = await fetch(`https://klifts.test/wp-json/wc/store/v1/cart`);
+      const response = await fetch(`${EnvProvider.wcUrl}wc/store/v1/cart`);
       const jsonData = await response.json();
       setCart({
         items: jsonData.items,

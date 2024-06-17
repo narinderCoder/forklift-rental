@@ -5,3 +5,5 @@
 .budfiles
 npm-debug.log
 yarn-error.log
+/resources/scripts/react/EnvVar.js
+/scripts/react/components/EnvContext.jsx

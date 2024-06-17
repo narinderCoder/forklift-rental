@@ -14,7 +14,7 @@ export default function CartTotal() {
   const fetchCartData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://klifts.test/wp-json/wc/store/v1/cart`);
+      const response = await fetch(`${EnvProvider.wcUrl}wc/store/v1/cart`);
       const jsonData = await response.json();
       setCart({
         items: jsonData.items,
