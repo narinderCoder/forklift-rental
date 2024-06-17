@@ -7,10 +7,10 @@
 
 
 export default  {
-    baseUrl : 'http://18.222.127.15/forklift-rental/web/wp-json/sage-endpoint/v1/',
-    url : 'http://18.222.127.15/forklift-rental/web/',
-    wcUrl : 'http://18.222.127.15/forklift-rental/web/wp-json/',
-    ajaxUrl:'http://18.222.127.15/forklift-rental/web/wp/wp-admin/admin-ajax.php'
+    baseUrl : 'http://18.222.127.15/wp-json/sage-endpoint/v1/',
+    url : 'http://18.222.127.15/',
+    wcUrl : 'http://18.222.127.15/wp-json/',
+    ajaxUrl:'http://18.222.127.15/wp/wp-admin/admin-ajax.php'
 };
 
 
