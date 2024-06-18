@@ -157,6 +157,7 @@ const Blogcard = ({ title, description, slug, readMore = false, blog,comments, p
           {readMore  && comments.length > 0 && comments.map((reply, index) => (
             <Reply showInput={showInput} setShowInput={setShowInput}  cmt={comment} setComment={setComment} reply={reply} key={index} parent={0} handleSubmit={handleSubmit} />
           ))}
+          
         </div>
         {(comments?.length) < parseInt(commentCounts) ? (
                 <div className="w-100 d-flex flex-column align-items-center justify-content-between">
