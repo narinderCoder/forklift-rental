@@ -16,6 +16,8 @@ const MainProducts = ({
 }) => {
 
 const [compareList,setCompareList] = useState([]);
+const [compareModelShow, setCompareModel] = useState(false);
+const [showCompareProducts, setShowCompareProducts] = useState(false);
   
 const handleComparelist = (e,product) => {
   if(compareList.length > 3){
@@ -32,6 +34,8 @@ const handleComparelist = (e,product) => {
       compare_list = compare_list.filter(obj => obj.id !== p_id);
     }  
     setCompareList(compare_list);
+
+    localStorage.setItem('compareList',JSON.stringify(compare_list));
   } 
 }
 
@@ -46,14 +50,11 @@ const handleRemoveCompare = (product) => {
     setCompareList(compare_list);
 }
 
-const handleCompareModel = (e) => setCompareModel(e);
 
-const [compareModelShow,setCompareModel] = useState(false);
 
   return (
-    <>
-    <div className="col-12 col-md-8">
-      <div className="flex-row mb-8 justify-content-between w-100 d-flex align-items-center">
+    <div className="col-12 col-xl-9">
+      <div className="flex-lg-row flex-column my-4 my-xl-0 justify-content-between w-100 d-flex align-items-lg-center">
         <input placeholder="Search" className="search-input" onChange={(e) => handleSearch(e)}/>
 
         <button className="text-white btn-secondary bg-primary" onClick={() => setCompareModel(true)}>
@@ -65,21 +66,17 @@ const [compareModelShow,setCompareModel] = useState(false);
         style={{ gap: "2.5rem", marginTop: "2.5rem" }}
       > 
 
-<Loader loading={loading}/>
+      <Loader loading={loading}/>
 
       {loading ? (
-        <> 
-        </>
-      ) : (
-         <>
-         {products.length > 0 ? products.map( (product,index) => (
+        null
+      ) : products.length > 0 ? products.map( (product,index) => (
             <div key={index}>
               <CatalogueCard product={product} setShowModal={() => {}} handleComparelist={handleComparelist}/>
                <hr className="border-secondary opacity-20" /> 
             </div>
-        )) : ''}
-         </>
-      )}
+        )) : null
+      }
 
 
         
@@ -106,18 +103,20 @@ const [compareModelShow,setCompareModel] = useState(false);
 
       <CompareModal
         showModal={compareModelShow}
-        setShowModal={() => handleCompareModel()}
+        setShowModal={setCompareModel}
         clearProducts={() => setCompareList([])}
-        onShow={() => {}}
+        onShow={() => {
+          setCompareModel(false);
+          setShowCompareProducts(true);
+        }}
       >
-        <div className="flex-row flex-wrap d-flex align-items-center">
+        <div className="row g-4 m-0 p-0">
           {compareList.length > 0 && compareList.map((p, index) => (
-            <div
-              key={index}
+           <div  key={index} className="col-lg-3 col-md-4 col-sm-6 col-12">
+             <div
               className={"rounded-2 position-relative m-2 px-2 py-3"}
               style={{
                 cursor: "pointer",
-                width: "calc(25% - 1.25rem)",
                 boxShadow:
                   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
               }}
@@ -138,21 +137,21 @@ const [compareModelShow,setCompareModel] = useState(false);
                 onClick={() => handleRemoveCompare(p)}
               />
             </div>
+           </div>
           ))}
         </div>
       </CompareModal>
 
       <CompareProducts
-        show={false}
-        setShow={() => {}}
-        specs={[]}
-        products={[]}
-        showModal={false}
-        onAdd={() => {}}
+        show={showCompareProducts}
+        setShow={setShowCompareProducts}
+        products={compareList}
+        removeProduct={() => {}}
+        onAdd={() => setCompareModel(true)}
       />
     </div>
 
-    </>
+
   );
 };
 

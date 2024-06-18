@@ -39,7 +39,25 @@ trait ProductTrait{
                     foreach ( $variations as $variation ) {
 
                         $variation_obj = wc_get_product( $variation['variation_id'] ); 
-                        $variation_price_html = $variation_obj->get_price_html();
+                        $variation_price_html = $variation_obj->get_price_html(); 
+    
+    
+                        $variation_price = $variation_obj->get_price();
+                        $variation_regular_price = $variation_obj->get_regular_price();
+                        $variation_sale_price = $variation_obj->get_sale_price();
+    
+                        if ($variation_sale_price && $variation_regular_price) {
+                            $discount_percentage = round((($variation_regular_price - $variation_sale_price) / $variation_regular_price) * 100);
+                            $variation_price_html = '<del class="p3 text-center text-decoration-line-through text-secondary opacity-50">' . wc_price($variation_regular_price) . '</del>';
+                            $variation_price_html .= '<p class="p1 text-center  text-secondary">' . wc_price($variation_sale_price) . '</p>';
+                           
+                             $variation_price_html .= ' <button class="px-2 text-center py-0.5 text-white rounded-4 bg-primary p3">Save ' . $discount_percentage . '%</button>';
+                        } else {
+                            $variation_price_html = wc_price($variation_price);
+                        }
+
+                        // $variation_obj = wc_get_product( $variation['variation_id'] ); 
+                        // $variation_price_html = $variation_obj->get_price_html();
                         $formatted_variations[] = array(
                             'id' => $variation['variation_id'],
                             'attributes' => $variation['attributes'],
@@ -381,11 +399,11 @@ public function getProduct($product_id){
 
                     if ($variation_sale_price && $variation_regular_price) {
                         $discount_percentage = round((($variation_regular_price - $variation_sale_price) / $variation_regular_price) * 100);
-                        $variation_price_html = '<del className="p3 text-opacity-50 text-decoration-line-through text-secondary">' . wc_price($variation_regular_price) . '</del>';
-                        $variation_price_html .= '<p className="p1 text-secondary">' . wc_price($variation_sale_price) . '</p>';
-                       
-                        $variation_price_html .= ' <button className="px-2 py-0.5 text-white rounded-4 bg-primary p3">Save ' . $discount_percentage . '%</button>';
-                    } else {
+                        $variation_price_html = '<del class="p3 text-center text-decoration-line-through text-secondary opacity-50">' . wc_price($variation_regular_price) . '</del>';
+                            $variation_price_html .= '<p class="p1 text-center  text-secondary">' . wc_price($variation_sale_price) . '</p>';
+                           
+                             $variation_price_html .= ' <button class="px-2 text-center py-0.5 text-white rounded-4 bg-primary p3">Save ' . $discount_percentage . '%</button>';
+                       } else {
                         $variation_price_html = wc_price($variation_price);
                     }
 

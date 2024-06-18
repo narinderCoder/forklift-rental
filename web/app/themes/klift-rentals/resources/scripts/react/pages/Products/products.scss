@@ -8,46 +8,42 @@
   gap: 5rem;
 
   @media (max-width: 768px) {
+    margin: 3rem auto;
     gap: 2.5rem;
   }
   .product-filters {
     position: relative;
     margin: auto;
-
+    align-items: center;
     height: 100%;
-    gap: 2.5rem;
+    // gap: 2.5rem;
     padding: 1rem;
     background-color: rgba($secondary-500, 0.05);
     border-radius: 1rem;
-
-    @media (max-width: 768px) {
+    @media (max-width: 1200px) {
       flex-direction: column;
       gap: 1.5rem;
-      align-items: center;
+      align-items: flex-start;
     }
-
     .products-filter-icon-section {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 1rem;
-      @media (max-width: 768px) {
+      @media (max-width: 1200px) {
         gap: 0.5rem;
       }
     }
-
     .product-filters-button {
       background-color: $primary-500;
       color: $white;
       border-radius: 1rem;
       padding: 0.5rem 1rem;
-      margin-inline-start: auto;
-      @media (max-width: 991px) {
+      @media (max-width: 1200px) {
         margin-inline-start: 0;
-        margin-inline-end: auto;
       }
     }
-  }
+  } 
   .product-side-filters {
     .bg-5 {
       background-color: rgba($secondary-500, 0.05);
@@ -66,5 +62,10 @@
     min-height: 2rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
+
+     @media (max-width: 991px) {
+      width: 100%;
+      margin-bottom: 1rem;
+     }
   }
 }

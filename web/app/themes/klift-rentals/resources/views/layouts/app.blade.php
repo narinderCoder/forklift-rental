@@ -39,7 +39,10 @@
     display: block;
   }
 
-
+  li.current-menu-item a{
+     opacity: 0.6 !important;
+     
+}
 
   
  </style>
@@ -58,7 +61,7 @@
     @include('sections.header')
   
     @php(wp_body_open()) 
-    <div style="width:100% !important;min-height:400px;"> @yield('content') </div>
+    <div style="width:100% !important;min-height:100vh;"> @yield('content') </div>
       @hasSection('sidebar')
         <aside class="sidebar">
           @yield('sidebar')

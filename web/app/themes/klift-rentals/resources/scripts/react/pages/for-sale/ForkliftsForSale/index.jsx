@@ -83,9 +83,7 @@ const ForkliftsForSale = () => {
       </h2>
       <div className="products">
         {products.length > 0 ? products.map((product,index) => (
-           <>
             <ProductCard key={index} product={product} view="spec" sale />
-           </>
         )) : 'No Products'}
        
 

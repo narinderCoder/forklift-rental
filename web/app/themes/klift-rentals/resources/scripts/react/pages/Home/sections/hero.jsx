@@ -24,8 +24,8 @@ const Hero = () => {
 
    
       return (
-        <div className="position-relative">
-        <video loop autoPlay muted playsInline className="w-100" height="auto">
+        <div className="video-container">
+        <video loop autoPlay muted playsInline>
           <source
             src={
               "https://static.vecteezy.com/system/resources/previews/003/612/345/forklift-operator-at-work-in-storehouse-video.webm"

@@ -1,56 +1,38 @@
 import { useState } from "react";
 import "./skid-steer-rentals.scss";
+import Banner from "@scripts/react/components/banner";
 
 const SkidSteerRentals = () => {
   const [selectedTab, setSelectedTab] = useState("rent");
   return (
     <div className="skid-steer-rentals-page">
-      <div className="position-relative w-100 vh-100">
-        <div
-          className="w-100 vh-100"
+       <Banner
+        image="https://images8.alphacoders.com/476/thumb-1920-476107.jpg"
+        height="90vh"
+      >
+        <h1
+          className="h1 text-white mb-7 text-center"
+          style={{ marginBottom: "1.75rem" }}
+        >
+          Skid Steer Rentals
+        </h1>
+        <h6
+          className="h6 text-center text-white"
+          style={{ marginBottom: "3.5rem" }}
+        >
+          All your equipment rental needs covered.
+        </h6>
+        <button
+          className="bg-white text-center"
           style={{
-            backgroundImage: `url(https://images8.alphacoders.com/476/thumb-1920-476107.jpg)`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            zIndex: 10,
-            transform: "scaleX(-1)",
-            filter: "brightness(0.5)",
-          }}
-        ></div>
-        <div
-          className="position-absolute d-flex flex-column align-items-center"
-          style={{
-            zIndex: 20,
-            transform: "translateX(-50%) translateY(-50%)",
-            top: "50%",
-            left: "50%",
+            padding: "0.75rem 2rem",
+            borderRadius: "10px",
+            cursor: "pointer",
           }}
         >
-          <h1
-            className="h1 text-white mb-7 text-center"
-            style={{ marginBottom: "1.75rem" }}
-          >
-            Skid Steer Rentals
-          </h1>
-          <h6
-            className="h6 text-center text-white"
-            style={{ marginBottom: "3.5rem" }}
-          >
-            All your equipment rental needs covered.
-          </h6>
-          <button
-            className="bg-white text-center"
-            style={{
-              padding: "0.75rem 2rem",
-              borderRadius: "10px",
-              cursor: "pointer",
-            }}
-          >
-            <p className="p1">View All Skid Steers</p>
-          </button>
-        </div>
-      </div>
+          <p className="p1">View All Skid Steers</p>
+        </button>
+      </Banner>
       <section className="container mx-auto section px-4">
         <div className="skid-steer-categories d-flex align-items-center justify-content-center position-relative">
           <h4

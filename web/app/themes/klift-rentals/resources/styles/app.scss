@@ -11,6 +11,11 @@
   overflow-x: hidden !important;
 }
 
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
 button {
   border: none;
   background-color: transparent;
@@ -48,10 +53,23 @@ body {
   min-height: 100vh;
 }
 
+.slick-list {
+  .slick-slide>div{
+    display: flex;
+  }
+  img {
+    height: 320px;
+    width: auto !important;
+    object-fit: cover;
+    margin: auto;
+    margin-bottom: 2rem;
+  }
+}
+
 .slick-product-dots {
   display: flex !important;
   overflow-x: scroll;
-  margin: 1rem 3rem;
+  margin: 1rem 3rem !important;
   padding: 0;
 
   li {
@@ -266,9 +284,18 @@ body {
   .product-slider-extra-container {
     width: 7rem;
     height: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @media (max-width: 768px) {
       width: 5rem;
       height: 5rem;
+    }
+
+    &.selected {
+      background-color: rgba(0, 0, 0, 0.25);
+      padding: 4px;
+      border-radius: 1rem;
     }
   }
 
@@ -283,11 +310,14 @@ body {
       height: 4rem;
     }
   }
+  
+
 
   .product-slider-extra-selected {
     width: 6.5rem;
     height: 6.5rem;
     filter: brightness(0.75);
+
     object-fit: cover;
     @media (max-width: 768px) {
       width: 4.5rem;
@@ -703,8 +733,40 @@ input.react-date-picker__inputGroup__year {
   justify-content: center;
   cursor: pointer;
   height: 7rem;
+  transition: all 0.3s;
 
   @media (max-width: 768px) {
     height: 5rem;
+  }
+
+  &:hover {
+    transform: scale(1.5);
+    color: rgba($primary-500, 1);
+  }
+}
+
+.banner-container  {
+  height: 80vh;
+  overflow: hidden;
+
+}
+
+.product-variations {
+  del bdi {
+    display: block !important;
+   text-align: center !important;
+  }
+}
+
+.new-product-for-sale-image {
+  width: 100%;
+  height: 320px;
+
+  img {
+    margin: auto;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

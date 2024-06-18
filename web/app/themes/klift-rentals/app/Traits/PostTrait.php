@@ -37,7 +37,15 @@ trait PostTrait{
 
      public function postRecord($post){
         $custom_fields = get_fields($post->ID); // Get custom fields associated with the post
-        $comment_count = wp_count_comments( $post->ID );
+     //   $comment_count = wp_count_comments( $post->ID );
+        global $wpdb;
+        $comment_count = $wpdb->get_var( $wpdb->prepare("
+                SELECT COUNT(*) 
+                FROM $wpdb->comments
+                WHERE comment_post_ID = %d
+                AND comment_approved = '1'
+                AND comment_parent = '0'
+            ", $post->ID ) );
         $blog = array(
             'id' => $post->ID,
             'title' => $post->post_title,

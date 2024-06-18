@@ -53,3 +53,4 @@
    style="overflow-x:hidden"> 
   <?php  wp_body_open(); ?>
   <div id="getHeaderReact"></div>
+  <div style="width:100% !important;min-height:100vh;">

@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
+import Banner from "@scripts/react/components/banner";
 
 const required_error = 'This field is required';
 
@@ -104,7 +105,7 @@ const ContactUs = () => {
   }, []);
   return (
     <div className="contact-us-page">
-      <div className="position-relative w-100" style={{ height: "90vh" }}>
+      {/* <div className="position-relative w-100" style={{ height: "90vh" }}>
         <div
           className="w-100 bg-tertiary bg-opacity-100"
           style={{
@@ -132,7 +133,17 @@ const ContactUs = () => {
           <p className="p1 text-center text-secondary text-opacity-80" dangerouslySetInnerHTML={{ __html: pageData?.content }}>
           </p>
         </div>
-      </div>
+      </div> */}
+  <Banner height="80vh" filter="none" image={pageData.custom_fields?.banner_image}>
+  <h3
+            className="h3 text-white text-center"
+            style={{ marginBottom: "1.75rem" }}
+          >
+           {pageData?.title}
+          </h3>
+          <p className="p1 text-center text-white text-opacity-80" dangerouslySetInnerHTML={{ __html: pageData?.content }}>
+          </p>
+      </Banner>
       <div className="container mx-auto section-alt">
         <div className="row g-4">
           <div className="col-md-5 col-12">

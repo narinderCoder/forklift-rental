@@ -1,80 +1,201 @@
 import { Plus, X } from "lucide-react";
+import { useEffect } from "react";
 
-const CompareProducts = ({ products, showModal, onAdd }) => {
+const CompareProducts = ({ show, setShow, products, onAdd, removeProduct }) => {
+
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [show]);
+
+
+  function makeCompareType(){
+    
+  }
+
   return (
     <div
-      className={`w-100 bg-white ${showModal? "d-block": "d-none"}`}
+      className={`bg-white text-secondary w-100 h-100 top-0 start-0 ${
+        show ? "d-block" : "d-none"
+      }`}
       style={{
         position: "fixed",
-        height: "100vh",
-        overflow: showModal ? "auto" : "hidden",
+        overflow: show ? "auto" : "hidden",
         zIndex: 1000,
-        padding: "2.5rem auto",
-        overflowX: "hidden",
-        inset: 0,
       }}
     >
-      <div className="container gap-4 mx-auto row">
-        <div className="p-4 d-flex flex-column justify-content-end">
-          <div className="flex-column d-flex">
-            <h2 className="mb-4 h2 max-h-80"></h2>
+      <div className="overflow-hidden">
+        <div
+          className="bg-white position-absolute"
+          style={{ width: "160px", zIndex: 99 }}
+        >
+          <div className="py-4 justify-content-between flex-column d-flex">
+            <div className="w-100 d-flex">
+              <p className="compare-product-spec-name flex-grow-1 mb-4 p1 fw-semibold line-clamp-3"></p>
+            </div>
             <div
-              className="w-auto mb-4"
+              className="w-auto rounded-4"
               style={{ aspectRatio: "4/3", height: "10rem" }}
             />
-            {/* ------------------- specs title -------------------- */}
             {Array.from({ length: 10 }).map((spec, ind) => (
-              <p key={ind} className="my-4 font-semibold">
+              <p key={ind} className="my-4 text-center fw-semibold">
                 Manufacturer
               </p>
             ))}
           </div>
         </div>
-        {/* ------------------- products -------------------- */}
-        {Array.from({ length: 4 }).map((product, index) => (
+        <div className="overflow-scroll">
           <div
-            key={index}
-            className="p-4 justify-content-between flex-column d-flex"
+            className="d-flex gap-4"
+            style={{
+              marginInline: "10.5rem",
+            }}
           >
-            <div className="w-100 d-flex">
-              <h2 className="flex-1 h-20 mb-4 text-xl font-semibold line-clamp-3">
-                TOYOTA 6500 FORKLIFT FOR RENT OR SALE IN HOUSTON
-              </h2>
-              <X style={{ cursor: "pointer" }} onClick={() => {}} />
-            </div>
-
-            <img
-              src="https://www.mechanicalpower.net/wp-content/uploads/2022/04/Components-of-a-Forklift-Truck-980x655.jpg"
-              //   alt={product.id}
-              className="w-auto"
-              style={{ aspectRatio: "4/3", height: "10rem" }}
-            />
-
-            {Array.from({ length: 10 }).map((spec, ind) => (
-              <p key={ind} className="my-4">
-                Toyota
-              </p>
+            {products && products.length > 0 && products.map((product, index) => (
+              <div key={index} className="compare-product-column mt-4 mt-md-0">
+                <div className="py-4 justify-content-between flex-column d-flex">
+                  <div className="w-100 d-flex">
+                    <p
+                      className="flex-grow-1 mb-4 h6 fw-semibold line-clamp-3"
+                      style={{ height: "6rem" }}
+                    >
+                      {product.name}
+                    </p>
+                    <X
+                      style={{ cursor: "pointer", width: "4rem" }}
+                      onClick={removeProduct}
+                    />
+                  </div>
+                  <img
+                    src={product?.image}
+                    //   alt={product.id}
+                    className="w-auto rounded-4"
+                    style={{ aspectRatio: "4/3", height: "10rem" }}
+                  />
+                  {Array.from({ length: 10 }).map((spec, ind) => (
+                    <p key={ind} className="my-4 text-center">
+                      Toyota
+                    </p>
+                  ))}
+                </div>
+              </div>
             ))}
+            {products.length < 4 ? (
+              <div
+                className="position-relative d-flex flex-column align-items-center justify-content-start p-4"
+                style={{ marginTop: "7rem", width: "220px" }}
+              >
+                <div
+                  className="mb-4 border d-flex align-items-center justify-content-center rounded-circle"
+                  style={{
+                    width: "8rem",
+                    height: "8rem",
+                    aspectRatio: "4/3",
+                    cursor: "pointer",
+                  }}
+                  onClick={onAdd}
+                >
+                  <Plus cursor={"pointer"} />
+                </div>
+              </div>
+            ) : null}
           </div>
-        ))}
-        {products.length < 4 ? (
-          <div
-            className="relative flex flex-col items-center justify-start p-4 mt-28"
-            onClick={onAdd}
-          >
-            <div className="aspect-[4/3] h-32 w-32 mb-4 border flex items-center justify-center rounded-full cursor-pointer">
-              <Plus />
-            </div>
-          </div>
-        ) : null}
+        </div>
       </div>
       <X
-        onClick={() => {}}
-        className="position-absolute"
-        style={{ zIndex: 100, top: "2rem", right: "2.5rem" }}
+        onClick={() => setShow(false)}
+        className="position-fixed"
+        cursor={"pointer"}
+        style={{ zIndex: 1400, top: "1rem", right: "0.5rem" }}
       />
     </div>
   );
 };
 
 export default CompareProducts;
+{
+  /* <div className="container mx-auto">
+        <div className="row m-0 p-0">
+          <div className="w-25">
+            {Array.from({ length: 1 }).map((product, index) => (
+              <div key={index} className="col-3">
+                <div className="py-4 justify-content-between flex-column d-flex">
+                  <div className="w-100 d-flex">
+                    <p
+                      className="flex-grow-1 mb-4 p1 fw-semibold line-clamp-3"
+                      style={{ height: "5.5rem" }}
+                    />
+                  </div>
+                  <span
+                    className="w-auto"
+                    style={{ aspectRatio: "4/3", height: "10rem" }}
+                  />
+                  {Array.from({ length: 10 }).map((spec, ind) => (
+                    <p key={ind} className="my-4 fw-semibold">
+                      Manufactor
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="w-75">
+            <div className="row p-0 m-0">
+              {Array.from({ length: 3 }).map((product, index) => (
+                <div key={index} className="col-3">
+                  <div className="py-4 justify-content-between flex-column d-flex">
+                    <div className="w-100 d-flex">
+                      <p
+                        className="flex-grow-1 mb-4 p1 fw-semibold line-clamp-3"
+                        style={{ height: "5.5rem" }}
+                      >
+                        TOYOTA 6500 FORKLIFT FOR RENT OR SALE IN HOUSTON
+                      </p>
+                      <X
+                        style={{ cursor: "pointer", width: "4rem" }}
+                        onClick={() => {}}
+                      />
+                    </div>
+                    <img
+                      src="https://www.mechanicalpower.net/wp-content/uploads/2022/04/Components-of-a-Forklift-Truck-980x655.jpg"
+                      //   alt={product.id}
+                      className="w-auto rounded-4"
+                      style={{ aspectRatio: "4/3", height: "10rem" }}
+                    />
+                    {Array.from({ length: 10 }).map((spec, ind) => (
+                      <p key={ind} className="my-4 text-center">
+                        Toyota
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {products.length < 4 ? (
+                <div className="col-3">
+                  <div
+                    className="position-relative d-flex flex-column align-items-center justify-content-start p-4"
+                    style={{ marginTop: "7rem" }}
+                  >
+                    <div
+                      className="mb-4 border d-flex align-items-center justify-content-center rounded-circle"
+                      style={{
+                        width: "8rem",
+                        height: "8rem",
+                        aspectRatio: "4/3",
+                        cursor: "pointer",
+                      }}
+                      onClick={onAdd}
+                    >
+                      <Plus cursor={"pointer"} />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div> */
+}

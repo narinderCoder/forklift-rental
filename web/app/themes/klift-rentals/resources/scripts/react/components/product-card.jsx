@@ -101,15 +101,17 @@ export default function ProductCard({ product, view = "quick", sale = false }) {
           </>
         ) : (
           <>
-              <button className="gap-0 font-weight-medium btn-primary my-md-4 my-2">
+           <div className="d-flex flex-column flex-md-row align-items-md-center align-items-start justify-content-between w-100 mb-2 mb-md-0">
+           <button className="gap-0 font-weight-medium btn-primary my-md-4 my-2">
                   <p  dangerouslySetInnerHTML={{ __html: product.price }}></p>
                 </button>
 
                 <a href={product.detail_page_url}>
-                  <button className="w-100 justify-content-center btn-secondary">
+                <button className="gap-0 font-weight-medium btn-primary my-md-4 my-2">
                     View Details
                   </button>
                 </a>
+           </div>
             <ExpandableCard
               title="Specifications"
               data={product}

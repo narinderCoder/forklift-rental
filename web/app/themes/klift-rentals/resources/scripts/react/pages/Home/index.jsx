@@ -37,7 +37,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <Hero />
-      <Catagories />  
+      <Catagories data={data}/>  
       <section
         className="bg-tertiary position-relative section"
         style={{ zIndex: 99 }}

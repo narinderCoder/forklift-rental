@@ -83,7 +83,7 @@ const NewForkliftsForSale = () => {
  
 const handleLoading = (e) => setLoading(e);
   return (
-    <div className="container section-alt">
+    <div className="container section-alt px-4">
       <h1 className="h1 mb-4">
           {pageData?.title} </h1>
       <p className="p1 text-secondary" style={{ marginBottom: "5rem" }} dangerouslySetInnerHTML={{ __html: pageData?.content }}>
@@ -101,11 +101,13 @@ const handleLoading = (e) => setLoading(e);
                 {item.products.length > 0 && item.products.map((product, ind) => (
                   <a href={product.detail_page_url}  key={ind} className="col-md-4 col-12">
                     <div className="border d-flex flex-column align-items-center gap-2 rounded-4 p-4">
+                      <div className="new-product-for-sale-image p-2">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="p-2 w-100"
+                        className=""
                       />
+                      </div>
                       <p className="p1 text-center">{product.name}</p>
                     </div>
                   </a>

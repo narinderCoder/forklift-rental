@@ -12,7 +12,9 @@ const Control = ({ children, ...props }) => (
   <components.Control {...props}>{children}</components.Control>
 );
 
-export default function Catagories() {
+export default function Catagories({
+  data
+}) {
   const [categories, setCategory] = useState([]);
   const [allcategories, setAllCategory] = useState([]);
   const [activeTab, setActiveTab] = useState('');
@@ -78,7 +80,6 @@ export default function Catagories() {
       setSelectedSubcategory(subcategories);
     }
   };
-  console.log(parent_categories.find((item) => item.slug === activeTab), "working")
 
   return (
     <section className="container mx-auto section-alt px-2 categories-section">
@@ -96,7 +97,7 @@ export default function Catagories() {
             <div
               className="category-line"
               style={{
-                left: activeTab === pc.slug ? "25%" : "100%",
+                left: activeTab === pc.slug ? "25%" : id === 0 ? "100%": "-100%",
                 opacity: activeTab === pc.slug ? 1 : 0,
               }}
             />
@@ -234,11 +235,17 @@ export default function Catagories() {
       className="flex-md-row flex-column w-100 justify-content-center d-flex align-items-md-center"
       style={{ gap: "2rem" }}
     >
-      <button className="w-auto justify-content-center rounded-2 btn-secondary">
-        Rental Request
-      </button>
 
-      <button className="w-auto justify-content-center rounded-2 btn-secondary">
+      {
+        data?.button_links?.length > 0 && data?.button_links.map((b) => (
+          <a href={b.button_link} className="w-auto justify-content-center rounded-2 btn-secondary">
+         {b.button_title}
+        </a>
+        ))
+      }
+   
+
+      {/* <button className="w-auto justify-content-center rounded-2 btn-secondary">
         Rental Application
       </button>
       <button className="w-auto justify-content-center rounded-2 btn-secondary">
@@ -246,7 +253,7 @@ export default function Catagories() {
       </button>
       <button className="w-auto justify-content-center rounded-2 btn-secondary">
         Service Request
-      </button>
+      </button> */}
     </div>
   </section>
     // <section className="bg-white section-alt position-relative categories-section w-100 h-100">

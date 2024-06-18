@@ -198,12 +198,10 @@ const handleLoading = (e) => setLoading(e);
       <h1 className="text-center text-secondary h1">
         {title}
       </h1>
-      <div>
-        <ProductFilters />
-        <div
-          className="row d-flex"
-          style={{ gap: "5rem", padding: "2rem 0.25rem" }}
-        >
+     <div>
+     <ProductFilters />
+      <div className="row d-flex p-0 mx-0 gx-10 gy-xl-2 gy-2 my-4">
+      
           <ProductSideOptions data={filterData} 
           handleOptions={settingFilterOptions} 
           handleSubOptions={handleSubOptions}
@@ -212,8 +210,9 @@ const handleLoading = (e) => setLoading(e);
           selectedCategories={selectedCategories}
           attributeChecked={attributeOptions}/>
           <MainProducts products={products} handlePagination={handlePagination} page={page} handleSearch={handleSearch} loading={loading} handleLoading={handleLoading}/>
-        </div>
+       
       </div>
+     </div>
     </div>
   );
 };

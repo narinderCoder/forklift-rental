@@ -42,7 +42,6 @@ const [recentBlogs,setRecentBlogs] = useState([]);
     fetchrecentBlogs();
   }, []);
 
-
   return (
     <div className="blogs-page">
       <div className="container mx-auto section-alt px-4">
@@ -52,7 +51,7 @@ const [recentBlogs,setRecentBlogs] = useState([]);
             className="d-flex flex-column col-12 col-lg-9"
             style={{ gap: "2.5rem" }}
           >
-            {blogs.length > 0 && blogs.map((blog,index) => (
+            {blogs && blogs.length > 0 ? blogs.map((blog,index) => (
                   <Blogcard
                     image={blog.thumbnail}
                     title={blog.title}
@@ -60,7 +59,7 @@ const [recentBlogs,setRecentBlogs] = useState([]);
                     description={blog.content}
                     blog={blog}
                 />
-            ))}
+            )): null}
           
             
           </div>

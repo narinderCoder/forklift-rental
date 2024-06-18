@@ -103,7 +103,9 @@ const ProductSlider = ({ data, className = ""  }) => {
       return (
         <div
           style={{ transition: "all 0.3s" }}
-          className="product-slider-extra-container"
+          className={`product-slider-extra-container ${slideIndex === i
+            ? "selected"
+            : ""}`}
         >
           <img
             src={data.images[i]}
@@ -122,12 +124,11 @@ const ProductSlider = ({ data, className = ""  }) => {
       );
     },
   };
-  console.log(data, "working")
 
   return (
     <div className={`product-slider-container position-relative ${className}`}>
       <div
-        className="position-absolute start-0 bottom-0 bg-white px-2 slider-chevron"
+        className="position-absolute start-0 bottom-0  px-2 slider-chevron"
         style={{ zIndex: 99999 }}
         onClick={() => sliderRef.current?.slickPrev()}
       >
@@ -147,7 +148,7 @@ const ProductSlider = ({ data, className = ""  }) => {
        
       </Slider>
       <div
-        className="position-absolute end-0 bottom-0 bg-white px-2 slider-chevron"
+        className="position-absolute end-0 bottom-0 px-2 slider-chevron"
         style={{ zIndex: 99999 }}
         onClick={() => sliderRef.current?.slickNext()}
       >

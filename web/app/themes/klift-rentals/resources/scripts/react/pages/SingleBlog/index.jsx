@@ -8,7 +8,7 @@ const SingleBlog = () => {
 const [blogs,setBlogs] = useState([]);
 const [blog,setBlog] = useState([]); 
 const [blogID,setBlogID] = useState(0); 
-
+const [parentComment, setParentComment] = useState("")
 const [comment, setComment] = useState("")
 const [comments,setComments] = useState([]);
 const [commentCounts,setCommentCounts] = useState(0);  
@@ -19,21 +19,22 @@ const [loading,setLoading] = useState(false);
 const handleSubmit = async (parent_comment) => {
   try {
     handleLoading(true);
-
+    let cmt = parent_comment == 0 ? parentComment : comment;
     var divElement = document.getElementById('blogDetailReact');
     if (divElement) { 
       let $_ID = parseInt(divElement.getAttribute('data-check')); 
       let $email = parseInt(divElement.getAttribute('data-email')); 
          if($_ID > 0){
-             if(comment !== ''){
+             if(cmt !== ''){
               const response = await axios.post(`${EnvProvider.baseUrl}custom-form-submission/post-comment`, {
                 parent_comment:parent_comment,
-                content:comment,
+                content:cmt,
                 post_id:blog.id,
                 id:$_ID,
                 email:$email
-              }); 
+              });
               setComment('');
+              setParentComment('');
               fetchData();
              }else{
               alert('Enter comment first');
@@ -66,7 +67,7 @@ const handleSubmit = async (parent_comment) => {
       setBlog(data1);
       const comments = jsonData.data.comments;
       
-      setCommentCounts(jsonData.data.post?.comment_count?.approved);
+      setCommentCounts(jsonData.data.post?.comment_count);
       setComments(comments);  
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -93,11 +94,10 @@ const handleSubmit = async (parent_comment) => {
         />
         
         <div className="w-100 section">
+           
           {blog.title != undefined && (
               <Blogcard
-              image={
-                blog?.image
-              }
+              image={blog?.image}
               comment={comment}
               setComment={setComment}
               title={blog?.title}
@@ -107,12 +107,18 @@ const handleSubmit = async (parent_comment) => {
               blog={blog}
               comments={comments}
               handleSubmit={handleSubmit}
+              parentComment={parentComment}
+              setParentComment={setParentComment}
+              loadMoreComments={() => loadMoreComments()} 
+              commentCounts={commentCounts}
               />
           )}
 
-            {comments.length > 0 && (
+            {/* {comments.length > 0 && (
                 <BlogComments loadMoreComments={() => loadMoreComments()} commentCounts={commentCounts} comments={comments} cmt={comment} setComment={setComment} handleSubmit={handleSubmit}/>
-            )}    
+            )}     */}
+
+
         </div>
       </div>
     </div>

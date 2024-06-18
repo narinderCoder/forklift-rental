@@ -5,7 +5,8 @@ import { CalendarDays, MapPin } from "lucide-react";
 const ProductFilterSection = ({ icon, src, children, handleSearch }) => {
   const Icon = icon ? icon : null;
   return (
-    <div className="products-filter-icon-section col-lg-3 col-12">
+    <div className="col-lg col-md-6 col-12">
+      <div className="products-filter-icon-section">
       {Icon ? (
         <Icon
           style={{ width: "1.5rem", height: "1.5rem" }}
@@ -15,17 +16,15 @@ const ProductFilterSection = ({ icon, src, children, handleSearch }) => {
       {src ? <img src={src} alt={src} width={"2rem"} height={"2rem"} /> : null}
       {children}
     </div>
+    </div>
   );
 };
 
 const ProductFilters = ({
   data
 }) => {
-
-
-
   return (
-    <div className="row product-filters">
+    <div className="row m-0 gx-4 product-filters">
       <ProductFilterSection icon={MapPin}>
         <div className="d-flex flex-column w-100">
           <label htmlFor="location" className="text-opacity-50 text-secondary">
@@ -69,9 +68,11 @@ const ProductFilters = ({
           />
         </div>
       </ProductFilterSection>
-      <button className="product-filters-button p1 col-12 col-sm-6 col-lg-1">
+      <div className="col-12 col-sm-6 col-lg-4 col-xl-1">
+      <button className="product-filters-button p1 w-100">
         Apply
       </button>
+      </div>
     </div>
   );
 };

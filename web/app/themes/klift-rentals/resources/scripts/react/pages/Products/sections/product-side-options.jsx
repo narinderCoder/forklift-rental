@@ -46,14 +46,16 @@ const ProductSideOptions = (props) => {
   };
 
   return (
-    <div className="gap-4 d-flex flex-column col-12 col-md-3 product-side-filters">
-      <div className="gap-4 align-items-center justify-content-between d-flex">
-        <div className="gap-2 align-items-center d-flex">
-          <Filters />
-          <p className="text-opacity-50 text-secondary">Filters</p>
-        </div>
-        <div>
-          <button
+
+    <div className="col-12 col-xl-3">
+   <div className="gap-4 d-flex flex-column product-side-filters">
+    <div className="gap-4 align-items-center justify-content-between d-flex">
+      <div className="gap-2 align-items-center d-flex">
+        <Filters />
+        <p className="text-opacity-50 text-secondary">Filters</p>
+      </div>
+      <div>
+        <button
             className="border-none bg-none text-primary"
             onClick={(e) => props.resetFilter(e)}
           >
@@ -61,117 +63,6 @@ const ProductSideOptions = (props) => {
           </button>
         </div>
       </div>
-      {/* 
-      <div className="position-relative">
-        <button
-          onClick={() => handleOption('all-categories')}
-          className={
-            'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
-          }
-          style={{ padding: '0.75rem', gap: '0.5rem' }}
-        >
-          <p className="text-opacity-50 text-secondary">categories</p>
-          {selectedOption === 0 ? (
-            <Minus className="text-opacity-50 text-secondary" />
-          ) : (
-            <Plus className="text-opacity-50 text-secondary" />
-          )}
-        </button>
-        
-        <div
-          className={`filter-options ${
-            selectedOption === 'all-categories' ? 'open' : ''
-          }`}
-        >
-          {categories.length > 0 ? categories.map((category, index) => (
-
-
-              <>
-                  {(category?.children && category?.children.length > 0 ? (
-
-                    <>
-                        <button
-                            onClick={() => handleSubOption(parseInt(category.id))}
-                            className={
-                              'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
-                            }
-                            style={{ padding: '0.75rem', gap: '0.5rem' }}
-                          >
-                            <p className="text-opacity-50 text-secondary">
-                              {category.name}
-                            </p>
-                            {selectedSubOption === parseInt(category.id) ? (
-                              <Minus className="text-opacity-50 text-secondary" />
-                            ) : (
-                              <Plus className="text-opacity-50 text-secondary" />
-                            )}
-                        </button>
-                        <div
-                            className={`filter-options ${
-                              selectedSubOption === parseInt(category.id) ? 'open' : ''
-                            }`}
-                         > 
-                         <CategoryTree categories={category.children}  handleSubOptions={props.handleSubOptions} selectedCategories={props.selectedCategories}/>
-                       </div>
-                    </>
-
-                  ) : (
-                    <>
-                    {props.selectedCategories !== undefined &&
-                      props.selectedCategories.includes(parseInt(category.id)) ? ( 
-                        <Checkbox name={'category'} label={category.name} onChange={props.handleSubOptions} val={category.id}  checked={true}/> 
-                      ) : ( 
-                        <Checkbox name={'category'} label={category.name} onChange={props.handleSubOptions} val={category.id}/>  
-                      )}
-                      </>
-                  ))}
-              </>
- 
-                // <>
-                //    <button
-                //     onClick={() => handleSubOption(parseInt(category.id))}
-                //     className={
-                //       'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
-                //     }
-                //     style={{ padding: '0.75rem', gap: '0.5rem' }}
-                //   >
-                //     <p className="text-opacity-50 text-secondary">
-                //       {category.name}
-                //     </p>
-                //     {selectedSubOption === parseInt(category.id) ? (
-                //       <Minus className="text-opacity-50 text-secondary" />
-                //     ) : (
-                //       <Plus className="text-opacity-50 text-secondary" />
-                //     )}
-                //   </button>
-                //   {category?.children && category?.children.length > 0 ? (
-                //     <div
-                //         className={`filter-options ${
-                //           selectedSubOption === parseInt(category.id) ? 'open' : ''
-                //         }`}
-                //       > 
-                //        <CategoryTree categories={category.children}  handleSubOptions={props.handleSubOptions} selectedCategories={props.selectedCategories}/>
-                //     </div>
-                //   ) : (
-                //     <>
-                //     {props.selectedCategories !== undefined &&
-                //       props.selectedCategories.includes(parseInt(category.id)) ? (
-                //         <>
-                            
-                //             <Checkbox name={'category'} label={category.name} onChange={props.handleSubOptions} val={category.id}  checked={true}/>
-                //         </>
-                //       ) : (
-                //         <>
-                //          <Checkbox name={'category'} label={category.name} onChange={props.handleSubOptions} val={category.id}/>
-                          
-                //         </>
-                //       )}
-                //     </>
-                //   )}
-                // </>
-          )) : ''}
-        </div>
-      </div> */}
       <div className="position-relative">
         <button
           onClick={() => handleOption('all-categories')}
@@ -291,6 +182,11 @@ const ProductSideOptions = (props) => {
           ))
         : ''}
     </div>
+    </div>
+
+
+
+   
   );
 };
 

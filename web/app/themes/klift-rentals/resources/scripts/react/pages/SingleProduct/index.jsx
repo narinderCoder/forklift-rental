@@ -2,49 +2,40 @@ import Rating from "../../components/rating";
 import ExpandableCard from "../../components/expandable-card";
 import ProductSlider from "../../components/product-slider";
 import Breadcrumbs from "../../components/breadcrumbs";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import EnvProvider from '@scripts/react/EnvVar';
 import axios from 'axios';
-import { CartContext } from "@scripts/react/components/CartProvider";
 import DescriptionExpandableCard from "@scripts/react/components/description-expandable-card";
 import AddToCart from "@scripts/react/components/add-to-cart";
 import Loader from "@scripts/react/components/loader";
+import Badge from "@scripts/react/icons/badge";
+import Truck from "@scripts/react/icons/truck";
+import CoinBag from "@scripts/react/icons/coin-bag";
+import TruckAlt from "@scripts/react/icons/truck-alt";
 const features = [
   {
-    image:
-      "https://s3-alpha-sig.figma.com/img/4a19/b760/259c3d911b501fd0984acbc102e7df9e?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gdJhM9Yiwm5Tf6FZlgQJzjGJboOVlTe9EuquP8R2BbBHgMTmWGwr-H6CduLi~YoX6EV9sx6hs1x8cnynMZDvejGz61FhQfvXWaRjozOU6IcpiSvjMg4rkyU~6bhbM8rmOkZG6JGMcRpBlg4qcgFozrf8P~GWc51CfefoOXk56H6WK7m3J6xMKZ1h1I9kOpWg5qcyusmHHm9wse3KpuFZwZ4G6PFXSgByon0wJIZ6DBnwyJUlTlg4ZUJnK8PgkJm4Mr-GHsywh03xTXEC3JS37ALDaA7hH0dGf6DEXVHpcqhFWn4vzXtxZyeu5Nu9nt-fR8up7CgCjLvEIyg1NARHAQ__",
+    image: <TruckAlt/>,
     title: "Nationwide Delivery",
     description: "In-house logistics team and truck fleet",
   },
   {
-    image:
-      "https://s3-alpha-sig.figma.com/img/fe2f/ffa1/b41d8fd0c96615949e4cc01bc1e2b6ac?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XwtzargbW3Il7uyWYeQskh5I~JWjzdpQiN1C3EOjPya5vG3YTnMzmiv0w5k6oSeKGRYNbiHhOn08c6Dudr6RkJSzYh0TabGSy9OQCCwjbH6Mw0VI3PyKFbo2gxsU3KG0O5iVnFeSLH8JU8Sdk27YqQZwswJ3ixCY0weEB5zx0eaPdE2KSDT4JXkq5sj~r1z3sKzCRnb7lI60Ytn6hlKULoREgOZEx8S8N5GhK0aADzzUJAua~URv70oQ~6nfrj~A5LgIZ9YLtzFeQ7Rqkt8VrgYYd7493q-P~LtCky3gvvk6tbuRCWA7PXYs0xXFC6kSLZW9GIeqGqIVOvfY9NADSw__",
+    image: <Badge/>,
     title: "Customer Reviews",
     description: "#1 ranked forklift dealer on Google",
   },
   {
-    image:
-      "https://s3-alpha-sig.figma.com/img/79ff/8328/a2bf331fe9e57eba9eaee113b8fb6b78?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=m1o17Mlq2DEEHtaUFpITTTiTpgj6iuUoLYBROZKCYNxHubIkz6x0dKUH~zlE-gGDs-VJU8gv9wT8EeBYwAzE5bkUyJg-WgZtqeVoFeFN8u8vqdxgz-ZVQIyngHyWnG0j~UhrDsDvOgXoASRqXbW2mxvI~kNGKXJk5K7K9PbVGHcdaaCe3rkdSHtiWJTLXHrvYpHZtAcqkzps10vT8z8X7d-9hVisdhUowBMp-EIMo1drQroTV5d4V36qx9M4iK6GgSqSs8t2gxUpuYa8o21GQk6XmZSj2ezH1W4xXvs1axtHw~gxnWP3PGsHs0d4sCidqNlxCiMvS1BRXqEehBBgaA__",
-    title: "Biggest Selection",
+    image: <Truck/>,
+   title: "Biggest Selection",
     description: "800+ great machines in stock",
   },
   {
-    image:
-      "https://s3-alpha-sig.figma.com/img/d7af/8c2c/f91100df25215e7d043bda10158725fe?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fVU3Djfp2AitbHoui7iw4r6hMazBUdN9CO9AERgerJ0tl2Astj8AUtks1Q2ISBqBxvOc43cU-Z4QAQtJIjNigyj5M-FwOrGOc4dd6K6lMWMB37WTEgmLpBKoSw0-Ajg4iYAR2li7sqPOQ8i6JxroEu-lnskBKK9iNYXYaUociOvzPcSUy5HZ~d9AYV9j5RpZUEwIhuaIleDlzdIuXMAhf93cMQLHctjD-YVEoZ5I9wGqfxLE9s5RLSogPZ9gg8YNEPNn6cUM64rKmqusGOPT4WUnogBmdUGdBwy~LgCgQ6fAUy5PVonjUrlmUIcuk0sw1zBeYMt3WO~r7ki~ozOQfA__",
-    title: "Lowest Prices",
+    image: <CoinBag/>,
+     title: "Lowest Prices",
     description: "Fast, quick, and easy financing",
   },
 ];
 
-const product = {
-  title: "LA Houston",
-  images: [
-    "https://s3-alpha-sig.figma.com/img/5ad1/a678/5a83c0d3d59daf5bf3953cb52d26ea83?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XPDeIAUd~2ufIuF4nJhjf5gaV6dSaixr~7pbmG0MK3Dw4con0spIY3JJwWLfJ04udmgBylODafzbghjfGRuAxsYRAElUrom4ecCyK-4fj3bw~sKoRmao~t0t9SswVeqH8kO3rRq9uqXFhGGvYnWCXMZqEIUStsd6RwKfdB3sjwbcSoJZBWqkQ44q-9DzUpBXhsJUsthTqW6hBNHtu5vWQERyoicpNfAAwkBWHhmX5-ts7lZti8Q5OTOGw9Fgb84xnbuTVoc7J7q5L857Cl3skDQtO9XLH9ncdCEtfw8ojMl0xy1j7V7AB8rl4LpNgL~ci~S-s45DI22XMzXkn0GFGg__",
-    "https://s3-alpha-sig.figma.com/img/5ad1/a678/5a83c0d3d59daf5bf3953cb52d26ea83?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XPDeIAUd~2ufIuF4nJhjf5gaV6dSaixr~7pbmG0MK3Dw4con0spIY3JJwWLfJ04udmgBylODafzbghjfGRuAxsYRAElUrom4ecCyK-4fj3bw~sKoRmao~t0t9SswVeqH8kO3rRq9uqXFhGGvYnWCXMZqEIUStsd6RwKfdB3sjwbcSoJZBWqkQ44q-9DzUpBXhsJUsthTqW6hBNHtu5vWQERyoicpNfAAwkBWHhmX5-ts7lZti8Q5OTOGw9Fgb84xnbuTVoc7J7q5L857Cl3skDQtO9XLH9ncdCEtfw8ojMl0xy1j7V7AB8rl4LpNgL~ci~S-s45DI22XMzXkn0GFGg__",
-    "https://s3-alpha-sig.figma.com/img/5ad1/a678/5a83c0d3d59daf5bf3953cb52d26ea83?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XPDeIAUd~2ufIuF4nJhjf5gaV6dSaixr~7pbmG0MK3Dw4con0spIY3JJwWLfJ04udmgBylODafzbghjfGRuAxsYRAElUrom4ecCyK-4fj3bw~sKoRmao~t0t9SswVeqH8kO3rRq9uqXFhGGvYnWCXMZqEIUStsd6RwKfdB3sjwbcSoJZBWqkQ44q-9DzUpBXhsJUsthTqW6hBNHtu5vWQERyoicpNfAAwkBWHhmX5-ts7lZti8Q5OTOGw9Fgb84xnbuTVoc7J7q5L857Cl3skDQtO9XLH9ncdCEtfw8ojMl0xy1j7V7AB8rl4LpNgL~ci~S-s45DI22XMzXkn0GFGg__",
-    "https://s3-alpha-sig.figma.com/img/5ad1/a678/5a83c0d3d59daf5bf3953cb52d26ea83?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XPDeIAUd~2ufIuF4nJhjf5gaV6dSaixr~7pbmG0MK3Dw4con0spIY3JJwWLfJ04udmgBylODafzbghjfGRuAxsYRAElUrom4ecCyK-4fj3bw~sKoRmao~t0t9SswVeqH8kO3rRq9uqXFhGGvYnWCXMZqEIUStsd6RwKfdB3sjwbcSoJZBWqkQ44q-9DzUpBXhsJUsthTqW6hBNHtu5vWQERyoicpNfAAwkBWHhmX5-ts7lZti8Q5OTOGw9Fgb84xnbuTVoc7J7q5L857Cl3skDQtO9XLH9ncdCEtfw8ojMl0xy1j7V7AB8rl4LpNgL~ci~S-s45DI22XMzXkn0GFGg__",
-  ],
-};
+
 const SingleProduct = () => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -299,11 +290,12 @@ const SingleProduct = () => {
                 borderRadius: "14px",
               }}
             >
-              <img
+              {/* <img
                 src={feature.image}
                 alt={feature.title}
                 style={{ width: "3.75rem", height: "3.75rem" }}
-              />
+              /> */}
+              {feature.image}
               <h6 className="h6 text-secondary">{feature.title}</h6>
               <p className="p1 text-secondary">{feature.description}</p>
             </div>
