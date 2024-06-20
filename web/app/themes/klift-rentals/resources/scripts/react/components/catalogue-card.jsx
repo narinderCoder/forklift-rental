@@ -1,10 +1,12 @@
 import { ChevronDown, Download } from "lucide-react";
-import Share from "../icons/share";
+import ShareIcon from "../icons/share";
 import Checkbox from "./checkbox";
 import { useState } from "react";
+import Share from "./share";
 
 const CatalogueCard = ({ product,handleComparelist }) => {
   const [showQuickView, setShowQuickView] = useState(false);
+  const [showShare, setShowShare] = useState(false)
   return (
     <div className="row m-0 p-0">
       <div className="col-md-3 col-12">
@@ -61,8 +63,18 @@ const CatalogueCard = ({ product,handleComparelist }) => {
       </div>
       <div className="gap-4 d-flex flex-column col-md-2 col-12">
         <div className="gap-3 text-opacity-50 d-flex align-items-center text-secondary justify-content-end">
-          <Download />
-          <Share />
+        {product?.custom_fields?.upload_file !== undefined && product?.custom_fields?.upload_file !== '' && (
+            <Download style={{cursor: "pointer"}} onClick={() => {
+              
+                var a = document.createElement('a');
+                a.href = product?.custom_fields?.upload_file;
+                a.download = product.name; 
+                document.body.appendChild(a);  
+                a.click();  
+                document.body.removeChild(a);
+            }}  />  
+        )}
+        <ShareIcon style={{cursor: "pointer"}} onClick={() => setShowShare(!showShare)} />
         </div>
         <div className="gap-2 d-flex flex-column">
          
@@ -83,6 +95,7 @@ const CatalogueCard = ({ product,handleComparelist }) => {
        <Checkbox label="Compare" reverse={true} onChange={(e) => handleComparelist(e,product)} className={"justify-content-start"}/>
        </div>
       </div>
+      <Share show={showShare} setShow={setShowShare} shareUrl={`${product.detail_page_url}`} />
     </div>
   );
 };

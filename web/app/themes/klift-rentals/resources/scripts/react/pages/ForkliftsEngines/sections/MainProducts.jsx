@@ -2,6 +2,7 @@ import CatalogueCard from "@scripts/react/components/catalogue-card";
 import CompareModal from "@scripts/react/components/compare-modal";
 import CompareProducts from "@scripts/react/components/compare-products";
 import EngineCard from "@scripts/react/components/engine-card";
+import Loader from "@scripts/react/components/loader";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { X } from "lucide-react";
 import { useState } from "react";
@@ -52,10 +53,8 @@ const [compareModelShow,setCompareModel] = useState(false);
 
   return (
     <>
-    <div className="col-12 col-md-8">
-       
-
-
+    <Loader loading={loading}/>
+      <div className="col-md-8 col-12 text-secondary">
       <div className="flex-md-row flex-column mb-8 justify-content-between w-100 d-flex align-items-md-start align-items-center">
               <p className="p1">{page.total} Results Found</p>
 
@@ -82,10 +81,7 @@ const [compareModelShow,setCompareModel] = useState(false);
 
 
 
-      <div
-        className="d-flex flex-column"
-        style={{ gap: "2.5rem", marginTop: "2.5rem" }}
-      > 
+       <div className="d-flex flex-column mt-4">
 
       {loading ? (
         <>
@@ -96,7 +92,7 @@ const [compareModelShow,setCompareModel] = useState(false);
          {products.length > 0 ? products.map( (product,index) => (
             <div key={index}>
               <EngineCard product={product} setShowModal={() => {}} handleComparelist={handleComparelist}/>
-               <hr className="border-secondary opacity-20" /> 
+              <hr className="border-secondary opacity-10 my-4" />
             </div>
         )) : ''}
          </>
@@ -105,10 +101,7 @@ const [compareModelShow,setCompareModel] = useState(false);
 
         
       </div>
-        <div
-            className="gap-2 justify-content-end d-flex align-items-center text-secondary"
-            style={{ marginTop: "2rem" }}
-        >
+      <div className="gap-2 mt-4 justify-content-md-end justify-content-center d-flex align-items-center text-secondary mt-1 mb-4">
            <ArrowLeft
             onClick={() => handlePagination(0)}
             className={`text-primary-alt ${page.p > 1 ? '' : 'text-opacity-50'}`}

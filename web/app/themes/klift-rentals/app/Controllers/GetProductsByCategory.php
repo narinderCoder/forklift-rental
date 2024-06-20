@@ -84,42 +84,16 @@ class GetProductsByCategory
     
             // Get category ID from slug
             $category = get_term_by('slug', $category_slug, 'product_cat');
-
-          // return ($category);
-   
             if (!$category) {
                 throw new Exception('Category not found');
             } 
-            // $tax_query[] = array(
-            //      'taxonomy' => 'product_cat', 
-            //      'field' => 'term_id', // Use term_id to identify categories
-            //      'terms' => $category->term_id
-            //     // 'operator' => 'IN', // or 'NOT IN' to exclude feature products
-            // );
-            
-            // // The query
-            // $args = array(
-            //     'paged'               => $paged,
-            //     'post_type'           => 'product',
-            //     'post_status'         => 'publish', 
-            //     'posts_per_page'      => $limit, 
-            //     'tax_query' => array( // Use tax_query to filter by taxonomy
-            //         array(
-            //             'taxonomy' => 'product_cat', // Taxonomy to query (product category)
-            //             'field' => 'term_id', // Use term_id to identify categories
-            //             'terms' => $category->term_id, // ID of the category to retrieve products from
-            //         ),
-            //     ),
-            // );
-
-            // $products_query = new WP_Query($args);
-
+          
 
             $tax_query[] = array(
                 'taxonomy' => 'product_cat',
                 'field' => 'term_id',
                 'terms' => $category->term_id,
-                );
+            );
 
                 // Get attribute terms from the request
                 $attributes = $request->get_param('attributes');

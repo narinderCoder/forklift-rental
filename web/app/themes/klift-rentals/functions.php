@@ -636,3 +636,35 @@ function enqueue_custom_script() {
     ));
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_script');
+
+
+
+
+function create_company_taxonomy() {
+    $labels = array(
+        'name' => 'Companies',
+        'singular_name' => 'Company',
+        'search_items' => 'Search Companies',
+        'all_items' => 'All Companies',
+        'parent_item' => 'Parent Company',
+        'parent_item_colon' => 'Parent Company:',
+        'edit_item' => 'Edit Company',
+        'update_item' => 'Update Company',
+        'add_new_item' => 'Add New Company',
+        'new_item_name' => 'New Company Name',
+        'menu_name' => 'Companies',
+    );
+
+    $args = array(
+        'hierarchical' => false, // Set this to true if you want to use it like categories, false for tags
+        'labels' => $labels,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'company'),
+    );
+
+    register_taxonomy('company', array('product'), $args);
+}
+
+add_action('init', 'create_company_taxonomy', 0);

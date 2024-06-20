@@ -225,8 +225,8 @@ const handleLoading = (e) => setLoading(e);
         </button> */}
       </Banner>
 
-      <div className="container mx-auto text-secondary">
-        <div className="section text-center">
+      <div className="container section pt-0 mx-auto text-secondary">
+        <div className="section px-4 text-center">
           <h3 className="h3">
            {pageData?.custom_fields?.forklifts_engines?.title}
           </h3>
@@ -234,8 +234,7 @@ const handleLoading = (e) => setLoading(e);
           {pageData?.custom_fields?.forklifts_engines?.description}
           </p>
         </div>
-        <div className="row g-4 side-filters">
-      
+        <div className="row m-0 g-4 side-filters">
           <EngineSidebar data={filterData} 
           handleOptions={settingFilterOptions} 
           handleSubOptions={handleSubOptions}

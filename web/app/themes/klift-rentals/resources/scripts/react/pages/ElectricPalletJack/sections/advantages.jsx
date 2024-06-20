@@ -3,6 +3,8 @@ import { CheckCheck } from "lucide-react";
 const Advantages = ({
   product
 }) => {
+
+  console.log( product,' product?.custom_fields?.features_and_advantages?.features ')
   return (
     <div className="row g-4">
       <div className="col-lg-5 col-md-6 col-12 mb-custom">
@@ -17,7 +19,7 @@ const Advantages = ({
         <ul className="list-group-flushed p1 text-secondary p-0 m-0 d-flex gap-4 flex-column">
 
           {
-            product?.custom_fields?.features_and_advantages?.features && product?.custom_fields?.features_and_advantages?.features.map((feature) => (
+            product?.custom_fields?.features_and_advantages?.features !== undefined && product?.custom_fields?.features_and_advantages?.features.map((feature) => (
               <li className="list-group-item">
                 <CheckCheck className="text-secondary text-opacity-80" /> {feature?.feature_item}
                </li>

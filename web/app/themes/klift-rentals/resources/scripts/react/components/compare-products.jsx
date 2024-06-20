@@ -1,5 +1,5 @@
 import { Plus, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const CompareProducts = ({ show, setShow, products, onAdd, removeProduct }) => {
 
@@ -10,11 +10,44 @@ const CompareProducts = ({ show, setShow, products, onAdd, removeProduct }) => {
       document.body.classList.remove("no-scroll");
     }
   }, [show]);
+  const [attributes, setAttributes] = useState({});
 
+  useEffect(() => {
+    let attributeObject = {};
+  
+    if (products && products.length > 0) {
+      products.forEach((product) => {
+        if (product.attributes && product.attributes.length > 0) {
+          product.attributes.forEach((attr) => {
+            if (!attributeObject[attr.name]) {
+              attributeObject[attr.name] = {};
+            }
+            attributeObject[attr.name]['title'] = attr.title;
+            attributeObject[attr.name][product.id] = {
+              name: attr.title,
+              values: attr.values,
+            };
+          });
+        }
+      });
+    }
+  
+    setAttributes(attributeObject);
+    // console.log('attributeObject', attributeObject);
+  }, [products]);
+  
 
   function makeCompareType(){
     
   }
+
+  const attributeArray = Object.keys(attributes).map((key) => {
+    return {
+      name: key,
+      details: attributes[key]
+    };
+  });
+  console.log(attributeArray);
 
   return (
     <div
@@ -33,33 +66,33 @@ const CompareProducts = ({ show, setShow, products, onAdd, removeProduct }) => {
           style={{ width: "160px", zIndex: 99 }}
         >
           <div className="py-4 justify-content-between flex-column d-flex">
-            <div className="w-100 d-flex">
+            <div className="w-100 d-flex" style={{height: "6rem"}}>
               <p className="compare-product-spec-name flex-grow-1 mb-4 p1 fw-semibold line-clamp-3"></p>
             </div>
             <div
-              className="w-auto rounded-4"
-              style={{ aspectRatio: "4/3", height: "10rem" }}
+              className="img-container"
             />
-            {Array.from({ length: 10 }).map((spec, ind) => (
+            {attributeArray && attributeArray.map((spec, ind) => (
               <p key={ind} className="my-4 text-center fw-semibold">
-                Manufacturer
+                {spec?.details?.title}
               </p>
             ))}
           </div>
         </div>
         <div className="overflow-scroll">
           <div
-            className="d-flex gap-4"
+            className="row"
             style={{
               marginInline: "10.5rem",
             }}
           >
             {products && products.length > 0 && products.map((product, index) => (
-              <div key={index} className="compare-product-column mt-4 mt-md-0">
+             <div key={index} className="col-3">
+               <div className="compare-product-column mt-4 mt-md-0">
                 <div className="py-4 justify-content-between flex-column d-flex">
                   <div className="w-100 d-flex">
                     <p
-                      className="flex-grow-1 mb-4 h6 fw-semibold line-clamp-3"
+                      className="flex-grow-1 h6 fw-semibold line-clamp-3"
                       style={{ height: "6rem" }}
                     >
                       {product.name}
@@ -69,18 +102,22 @@ const CompareProducts = ({ show, setShow, products, onAdd, removeProduct }) => {
                       onClick={removeProduct}
                     />
                   </div>
+                  <div className="img-container ">
                   <img
                     src={product?.image}
                     //   alt={product.id}
                     className="w-auto rounded-4"
-                    style={{ aspectRatio: "4/3", height: "10rem" }}
+                    // style={{height: "10rem"}}
                   />
-                  {Array.from({ length: 10 }).map((spec, ind) => (
+                  </div>
+                 
+                  {attributeArray.map((spec, ind) => (
                     <p key={ind} className="my-4 text-center">
-                      Toyota
+                        {spec.details[product.id]?.values?.length ? spec.details[product.id]?.values.join(", ") : '--' }
                     </p>
                   ))}
                 </div>
+              </div>
               </div>
             ))}
             {products.length < 4 ? (

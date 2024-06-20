@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 
-const ProductInfoSlider = ({ data = [] }) => {
+const ProductInfoSlider = ({ product }) => {
   //   const [slideIndex, setSlideIndex] = useState(0);
   const settings = {
     dots: true,
@@ -38,15 +38,14 @@ const ProductInfoSlider = ({ data = [] }) => {
       },
     ],
   };
-console.log(data, "console")
   return (
     <div>
       <Slider {...settings}>
-        {data && data.map((item, index) => (
+        {product?.custom_fields?.functions !== undefined && product?.custom_fields?.functions?.length > 0 && product?.custom_fields?.functions.map((item, index) => (
           <div key={index} className="mx-auto p-4 mb-4 text-center">
             <img
-              src={item.image}
-              alt={item.image}
+              src={item.picture}
+              alt={item.picture}
               className="mx-auto mb-4 rounded-4"
               style={{ width: "100%", objectFit: "cover" }}
             />

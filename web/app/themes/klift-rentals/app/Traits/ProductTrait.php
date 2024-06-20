@@ -101,17 +101,21 @@ trait ProductTrait{
                         }
                     }
                 }
+                
+
+                $custom_fields = get_fields($product->ID);
                 $formatted_products[] = array(
                     'id'    => $product->get_id(),
                     'name'  => get_the_title(),
-                    'price' => $product->get_price_html(),
-                     'isVariable' => $product->is_type('variable'),
+                    'price' =>  $product->get_price_html(),
+                    'isVariable' => $product->is_type('variable'),
                     'short_description' => $product->get_short_description(),
                     'image' => wp_get_attachment_url($product->get_image_id()),
                     'variations' => $formatted_variations,
                     'images' => $gallery_images,
                     'attributes' => $formatted_attributes, 
-                    'detail_page_url'  => $product_permalink,
+                    'detail_page_url'  => $product_permalink, 
+                    'custom_fields' => $custom_fields
                 );
         }
 
@@ -220,7 +224,7 @@ public function getProductCategories($parent=0,$type='Rent',$product_fetch=0){
 }
 
 
-public function getCategoriesWithProducts($categories=[],$type){ 
+public function getCategoriesWithProducts($categories,$type){ 
 
         // Get hierarchical category structure
         $subcategories = [];
@@ -521,5 +525,68 @@ public function getProduct($product_id){
 
         return $data;
 }
+
+
+    function calculate_distance($lat1, $lon1, $lat2, $lon2, $unit = 'km') {
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+        if ($unit == "K") {
+            return ($miles * 1.609344);
+        } else if ($unit == "N") {
+            return ($miles * 0.8684);
+        } else {
+            return $miles;
+        }
+    }
+
+
+
+    function filter_companies_by_radius($lat, $lng, $radius = 10) {
+        global $wpdb;
+    
+        // Calculate the bounding box coordinates
+        $radius = floatval($radius);
+        $lat = floatval($lat);
+        $lng = floatval($lng);
+    
+        $km_per_degree = 111.12; // Approximately 111.12 kilometers per degree of latitude
+    
+        $lat_delta = $radius / $km_per_degree;
+        $lng_delta = $radius / (cos(deg2rad($lat)) * $km_per_degree);
+    
+        $lat_min = $lat - $lat_delta;
+        $lat_max = $lat + $lat_delta;
+        $lng_min = $lng - $lng_delta;
+        $lng_max = $lng + $lng_delta;
+    
+        // Query to filter companies within the bounding box
+        $query = "
+            SELECT DISTINCT t.*, 
+                ACOS(SIN(RADIANS(m.meta_value)) * SIN(RADIANS($lat)) +
+                     COS(RADIANS(m.meta_value)) * COS(RADIANS($lat)) *
+                     COS(RADIANS(m2.meta_value) - RADIANS($lng))) * 6371 AS distance
+            FROM {$wpdb->terms} AS t
+            INNER JOIN {$wpdb->termmeta} AS m ON t.term_id = m.term_id
+            INNER JOIN {$wpdb->termmeta} AS m2 ON t.term_id = m2.term_id
+            WHERE m.meta_key = 'company_latitude'
+            AND m2.meta_key = 'company_longitude'
+            AND m.meta_value BETWEEN $lat_min AND $lat_max
+            AND m2.meta_value BETWEEN $lng_min AND $lng_max
+            HAVING distance <= $radius
+            ORDER BY distance ASC;
+        ";
+    
+        $results = $wpdb->get_results($query);
+    
+        return $results;
+    }
+    
+
+
+
 
 }

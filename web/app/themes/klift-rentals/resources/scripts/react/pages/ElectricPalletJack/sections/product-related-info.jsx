@@ -55,7 +55,7 @@ const ProductRelatedInfo = ({ information }) => {
                   paddingTop: open === index ? "2.5rem" : "0",
                 }}
               >
-                <p>{item.info}</p>
+                <p>{item.description}</p>
               </div>
             </div>
           ))

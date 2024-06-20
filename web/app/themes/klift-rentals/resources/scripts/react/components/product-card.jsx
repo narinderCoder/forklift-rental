@@ -8,9 +8,11 @@ import Quote from "../icons/quote";
 import Trade from "../icons/trade";
 import Settings from "../icons/settings";
 import { useState } from "react";
+import Share from "./share";
 
 export default function ProductCard({ product, view = "quick", sale = false }) {
   const [showQuickView, setShowQuickView] = useState(false);
+  const [showShare, setShowShare] = useState(false)
   return (
     <div className="row g-md-4 w-100 m-0 p-0 w-100">
       <div className="col-lg-5 col-md-6 col-12">
@@ -24,10 +26,19 @@ export default function ProductCard({ product, view = "quick", sale = false }) {
           </div>
           <div className="col-md-2 col-12 my-md-4 my-2">
             <div className="d-flex align-items-center gap-2 opacity-50 text-secondary">
-              <Download size={20} cursor="pointer" />
-              <div style={{ cursor: "pointer" }}>
-                <ShareIcon />
-              </div>
+            
+            {product?.custom_fields?.upload_file !== undefined && product?.custom_fields?.upload_file !== '' && (
+            <Download style={{cursor: "pointer"}} onClick={() => {
+              
+                var a = document.createElement('a');
+                a.href = product?.custom_fields?.upload_file;
+                a.download = product.name; 
+                document.body.appendChild(a);  
+                a.click();  
+                document.body.removeChild(a);
+            }}  />  
+        )}
+            <ShareIcon style={{cursor: "pointer"}} onClick={() => setShowShare(!showShare)} />
             </div>
           </div>
         </div>
@@ -121,6 +132,7 @@ export default function ProductCard({ product, view = "quick", sale = false }) {
           </>
         )}
       </div>
+      <Share show={showShare} setShow={setShowShare} shareUrl={`${product.detail_page_url}`} />
     </div>
   );
 }

@@ -8,52 +8,8 @@ import "./electric-pallet-stacker.scss";
 import { useContext, useEffect, useState } from "react";
 import EnvProvider from '@scripts/react/EnvVar';
 import { CartContext } from "@scripts/react/components/CartProvider";
-const productsInfo = [
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/b7ed/0b38/3641fda0d815442c43bf968a1153bae0?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OnStqpvCQhGlG0iY1pT0LUYlF9VWAwusc~ju2HGVA7-FKZiU2bMr5oskPTu8kgpgbD4UP~Rdb5WG4AGRflfWUN6qy~R-Jl3id8fetzlxDxpeTmFhokNwjLvyPCGk9Ikd6vVKSnah3clj-BKc85xpGam4GBPRxcwBM28H5MmAvoyc2gCPhYWbhEu7NA0h2m6FgPeNL58UpKc~gohZc6g3kVkS7nPWC9w8ZU5Zq38nW6-dVQ6ipIiGJ2imnVp1tXSsCg2jNQUBni1cY9a8JaGE8QXyp8LYv-Zod2Df2rbmAY-gJm42zs~nZ2BBl11y5pAJYU59kW6kUhW6c1kfHoDNvg__",
-    title: "Instrument Panel",
-    description: "Emergency stop Key Switch Hour Meter",
-  },
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/ed61/fc2a/b26f7c8693fef0ec09b8ab2c31b00260?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cXdrbuM2qEF57NY7gqOKLS0pIMLFVxJzyA8SWU4Kae2ud5RbrzWrSu1GOeGY~YEDizzdsPYVLW-tMIcrFON7TTyuouEbyfC2M2JqTUNH6x3fPhhKZmHZYBAJSXRelttIn-QXIhnLm0P6WxcHE2hZyGe6s964nR~D6AgP6Ga7Jc2IMdbuOs1sUDsBw3x4yQh7JJ8gELcg8FyCuyD1iSPsFLNT4lFPKV0j9oygGecEuS8nSgOALyn4nEF3gC8o0MVVfra1irhb5rVVdXPsKpL5xhjj-HK386eNOWj9iU02oiASf1vUawYwKPt0mOkoJKVfZVNdhS9DT1W2A3yL9equeA__",
-    title: "Built-in Charger",
-    description: "Easy to access to power supply",
-  },
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/9f2b/6fc1/94cb308fb0b04ce7ca0c8705b0fef51b?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CC~jhH394actCgVWUNnTbCAR44TMcSab-0-SxtB-GfhIq3pZ7rmOwwpEPn9dkYbwFiHW57ZQRBP~AM81c0qQQzd8RW5PJ-rj2kT7w~uJgi8qvrJrKizhyVrqT8XhtOybtZe1FevMkRxnfBLAgjekgS2sMLV3gVt-29ouBrY44shFyCXEJbR8D6EZWv7D-Ptp0gE7Gf3e~DsSLZLjv7ysnviO9rkd50FXn7-u3wc7tOxwxUHfHKufmOtfDVerI3IEMd6DC6QwdASiPyzInMfiGbxEpifeWnt-skvmcWyqAs~A4aGQxEpwbQOD6M-s~oVvJimpZjPtZ7BP6LDW9-6UeA__",
-    title: "Multifunctional Handle",
-    description: "Integrated control. Tiller head with comfortable design",
-  },
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/b7ed/0b38/3641fda0d815442c43bf968a1153bae0?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OnStqpvCQhGlG0iY1pT0LUYlF9VWAwusc~ju2HGVA7-FKZiU2bMr5oskPTu8kgpgbD4UP~Rdb5WG4AGRflfWUN6qy~R-Jl3id8fetzlxDxpeTmFhokNwjLvyPCGk9Ikd6vVKSnah3clj-BKc85xpGam4GBPRxcwBM28H5MmAvoyc2gCPhYWbhEu7NA0h2m6FgPeNL58UpKc~gohZc6g3kVkS7nPWC9w8ZU5Zq38nW6-dVQ6ipIiGJ2imnVp1tXSsCg2jNQUBni1cY9a8JaGE8QXyp8LYv-Zod2Df2rbmAY-gJm42zs~nZ2BBl11y5pAJYU59kW6kUhW6c1kfHoDNvg__",
-    title: "Instrument Panel",
-    description: "Emergency stop Key Switch Hour Meter",
-  },
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/ed61/fc2a/b26f7c8693fef0ec09b8ab2c31b00260?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cXdrbuM2qEF57NY7gqOKLS0pIMLFVxJzyA8SWU4Kae2ud5RbrzWrSu1GOeGY~YEDizzdsPYVLW-tMIcrFON7TTyuouEbyfC2M2JqTUNH6x3fPhhKZmHZYBAJSXRelttIn-QXIhnLm0P6WxcHE2hZyGe6s964nR~D6AgP6Ga7Jc2IMdbuOs1sUDsBw3x4yQh7JJ8gELcg8FyCuyD1iSPsFLNT4lFPKV0j9oygGecEuS8nSgOALyn4nEF3gC8o0MVVfra1irhb5rVVdXPsKpL5xhjj-HK386eNOWj9iU02oiASf1vUawYwKPt0mOkoJKVfZVNdhS9DT1W2A3yL9equeA__",
-    title: "Built-in Charger",
-    description: "Easy to access to power supply",
-  },
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/9f2b/6fc1/94cb308fb0b04ce7ca0c8705b0fef51b?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CC~jhH394actCgVWUNnTbCAR44TMcSab-0-SxtB-GfhIq3pZ7rmOwwpEPn9dkYbwFiHW57ZQRBP~AM81c0qQQzd8RW5PJ-rj2kT7w~uJgi8qvrJrKizhyVrqT8XhtOybtZe1FevMkRxnfBLAgjekgS2sMLV3gVt-29ouBrY44shFyCXEJbR8D6EZWv7D-Ptp0gE7Gf3e~DsSLZLjv7ysnviO9rkd50FXn7-u3wc7tOxwxUHfHKufmOtfDVerI3IEMd6DC6QwdASiPyzInMfiGbxEpifeWnt-skvmcWyqAs~A4aGQxEpwbQOD6M-s~oVvJimpZjPtZ7BP6LDW9-6UeA__",
-    title: "Multifunctional Handle",
-    description: "Integrated control. Tiller head with comfortable design",
-  },
-];
-
-const information = [
-  { title: "Shipping information", info: "" },
-  { title: "Warranty", info: "" },
-  { title: "Order delivery time", info: "" },
-  { title: "Return", info: "" },
-];
-
+ 
+ 
 const ElectricPalletJack = () => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -175,10 +131,10 @@ const ElectricPalletJack = () => {
         <ProductSection setLoading={setLoading} types={types} attributes={attributes} product={product} handleRadio={handleRadio} isChecked={isChecked} selectedVariation={selectedVariation}/>
       </div>
       <div className="container px-4 mx-auto">
-        <Advantages />
+        <Advantages product={product}/>
       </div>
       <div className="container px-4 mx-auto">
-        <ProductInfoSlider data={productsInfo} setLoading={setLoading} types={types} attributes={attributes} product={product} handleRadio={handleRadio} isChecked={isChecked} selectedVariation={selectedVariation}/>
+        <ProductInfoSlider  setLoading={setLoading} types={types} attributes={attributes} product={product} handleRadio={handleRadio} isChecked={isChecked} selectedVariation={selectedVariation}/>
       </div>
       <div className="container px-4 mx-auto">
         <ProductInformation setLoading={setLoading} types={types} attributes={attributes} product={product} handleRadio={handleRadio} isChecked={isChecked} selectedVariation={selectedVariation}/>
@@ -210,7 +166,7 @@ const ElectricPalletJack = () => {
         </div>
       </Banner>
       <div className="container px-4 mx-auto">
-        <ProductRelatedInfo information={information} />
+        <ProductRelatedInfo information={product?.custom_fields?.shipping} />
       </div>
     </div>
   );

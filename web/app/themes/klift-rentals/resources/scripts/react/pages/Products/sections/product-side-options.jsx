@@ -36,7 +36,12 @@ const ProductSideOptions = (props) => {
     }
   };
 
-  const [selectedOption, setSelectedOption] = useState('all-categories');
+  const [selectedParentOption, setSelectedParentOption] = useState(0);
+  const handleParentOption = (option) => {
+    setSelectedParentOption(option == selectedParentOption ? null : option);
+  };
+
+  const [selectedOption, setSelectedOption] = useState(0);
   const handleOption = (option) => {
     setSelectedOption(option == selectedOption ? '' : option);
   };
@@ -63,7 +68,7 @@ const ProductSideOptions = (props) => {
           </button>
         </div>
       </div>
-      <div className="position-relative">
+      {/* <div className="position-relative">
         <button
           onClick={() => handleOption('all-categories')}
           className={
@@ -122,7 +127,70 @@ const ProductSideOptions = (props) => {
               ))
             : null}
         </div>
-      </div>
+      </div> */}
+
+{categories !== undefined && categories && categories.length > 0 ? categories.map((parent, index) => (      
+     <div className="position-relative">
+        <button
+          onClick={() => handleParentOption(parseInt(index))}
+          className={
+            'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
+          }
+          style={{ padding: '0.75rem', gap: '0.5rem' }}
+        >
+          <p className="text-opacity-50 text-secondary">{parent.name}</p>
+          {selectedParentOption === index ? (
+            <Minus className="text-opacity-50 text-secondary" />
+          ) : (
+            <Plus className="text-opacity-50 text-secondary" />
+          )}
+        </button>
+       
+        <div className={`filter-options ${
+             selectedParentOption === parseInt(index) ? 'open' : ''
+         }`} > 
+
+          {parent.children !== undefined && parent.children.length > 0 ? (
+              <>
+                  {parent.children !== undefined && parent.children.length > 0 && parent.children.map((category, index) => (
+                  <>  
+                    {category?.children && category?.children.length > 0 ? (
+                       <>
+                            <button
+                            onClick={() => handleSubOption(parseInt(category.id))}
+                            className={
+                              'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
+                            }
+                            style={{ padding: '0.75rem', gap: '0.5rem' }}
+                            >
+                            <p className="text-opacity-50 text-secondary">
+                              {category.name}
+                            </p>
+                            {selectedSubOption === parseInt(category.id) ? (
+                              <Minus className="text-opacity-50 text-secondary" />
+                            ) : (
+                              <Plus className="text-opacity-50 text-secondary" />
+                            )}
+                            </button> 
+                          <div className={`filter-options ${
+                                selectedSubOption === parseInt(category.id) ? 'open' : ''
+                              }`} > 
+                            <CategoryTree categories={category.children}  handleSubOptions={props.handleSubOptions} selectedCategories={props.selectedCategories}/>
+                          </div>
+                       </>
+                    ) : (
+                      <Checkbox name={'category'} label={category.name} onChange={props.handleSubOptions} val={category.id}/>
+                    )}
+                  </>
+                ))}
+              </>
+          ):(
+                 <> <Checkbox name={'category'} label={parent.name} onChange={props.handleSubOptions} val={parent.id}/></>
+          )}
+        </div>
+        </div>
+      ))
+       : ''}
 
       {attributes.length > 0
         ? attributes.map((attribute, index) => (

@@ -90,6 +90,10 @@ class FilterController
                 $data = [
                     'categories' => $this->getProductCategories($parent,'CHL Forklift Dealer'),   
                 ];
+            }elseif($category_type == 'Material Handling and Packaging'){
+                $data = [
+                    'categories' => $this->getProductCategories($parent,'Material Handling and Packaging'),   
+                ];
              }
 
             return new WP_REST_Response(array(

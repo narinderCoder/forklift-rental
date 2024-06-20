@@ -1,4 +1,4 @@
-const Share = () => {
+const Share = (props) => {
   return (
     <svg
       width="20"
@@ -7,6 +7,7 @@ const Share = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      {...props}
     >
       <mask
         id="mask0_710_1254"

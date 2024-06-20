@@ -129,7 +129,7 @@ const ProductSlider = ({ data, className = ""  }) => {
     <div className={`product-slider-container position-relative ${className}`}>
       <div
         className="position-absolute start-0 bottom-0  px-2 slider-chevron"
-        style={{ zIndex: 99999 }}
+        style={{ zIndex: 99 }}
         onClick={() => sliderRef.current?.slickPrev()}
       >
         <ChevronLeft />
@@ -149,7 +149,7 @@ const ProductSlider = ({ data, className = ""  }) => {
       </Slider>
       <div
         className="position-absolute end-0 bottom-0 px-2 slider-chevron"
-        style={{ zIndex: 99999 }}
+        style={{ zIndex: 99 }}
         onClick={() => sliderRef.current?.slickNext()}
       >
         <ChevronRight />

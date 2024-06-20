@@ -25,6 +25,7 @@ import CartTotal from "./components/CartTotal";
 import { CartProvider } from "./components/CartProvider";
 import CHLForkliftDealer from "./pages/CHLForkliftDealer";
 import ElectricPalletJack from "./pages/ElectricPalletJack";
+import SkidSteerRentals from "./pages/SkidSteerRentals";
 
 
 const renderComponent = (element, Component) => {
@@ -181,6 +182,13 @@ const PackingPallet = document.getElementById('PackingPallet');
 if (PackingPallet) {
     ReactDOM.createRoot(PackingPallet).render(
         <ElectricPalletJack />
+    );
+}
+
+const skidSteers = document.getElementById('skidSteers');
+if (skidSteers) {
+    ReactDOM.createRoot(skidSteers).render(
+        <SkidSteerRentals />
     );
 }
 

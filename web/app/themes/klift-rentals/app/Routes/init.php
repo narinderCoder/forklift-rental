@@ -18,7 +18,8 @@ use \App\Controllers\{
     CustomPage,
     PostProductsNewForflifts,
     SingleProduct,
-    AddToCart
+    AddToCart,
+    PostSkidSteerProductsByCategory
 };
 
 new HeaderController();
@@ -37,3 +38,4 @@ new CustomPage();
 new PostProductsNewForflifts();
 new SingleProduct();
 new AddToCart();
+new PostSkidSteerProductsByCategory();

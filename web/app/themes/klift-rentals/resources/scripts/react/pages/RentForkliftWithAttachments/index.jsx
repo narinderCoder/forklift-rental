@@ -1,8 +1,8 @@
 import ReactSelect, { components } from "react-select";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import Checkbox from "../../components/checkbox";
-import ArrowUpDown from "../../icons/arrow-up-down";
+import Checkbox from "@scripts/react/components/checkbox";
+import ArrowUpDown from "@scripts/react/icons/arrow-up-down";
 
 const Control = ({ children, ...props }) => (
   <components.Control {...props}>

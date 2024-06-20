@@ -9,7 +9,7 @@ export default function ProductSlider({
 const [slideIndex, setSlideIndex] = useState(0);
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: data.images && data.images.length > 3,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,

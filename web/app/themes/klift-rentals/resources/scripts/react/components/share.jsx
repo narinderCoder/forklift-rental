@@ -3,7 +3,19 @@ import ShareIcon from "../icons/share";
 import XIcon from "../icons/x";
 import useOutsideClick from "../hooks/useOutsideClick";
 
-const Share = ({ show = false, setShow }) => {
+import {
+
+  FacebookShareButton,
+FacebookIcon,
+  InstapaperShareButton,
+InstapaperIcon,
+  TwitterShareButton,
+TwitterIcon,
+  WhatsappShareButton,
+ WhatsappIcon
+} from "react-share";
+
+const Share = ({ show = false, setShow, shareUrl='#' }) => {
   const ref = useRef(null);
 
   useOutsideClick(ref, () => setShow(false));
@@ -18,12 +30,12 @@ const Share = ({ show = false, setShow }) => {
           transform: "translateX(-50%) translateY(-50%)",
           top: "50%",
           left: "50%",
-          height: "38rem",
-          weight: "15rem",
+          width: "25rem"
         }}
         ref={ref}
       >
-        <div className="d-flex align-items-center justify-content-between px-4">
+    
+        <div className="d-flex align-items-center justify-content-between px-2">
           <div className="d-flex align-items-center gap-2 text-primary">
             <ShareIcon size={24} />
             <h6 className="h6 text-secondary">Share</h6>
@@ -37,12 +49,17 @@ const Share = ({ show = false, setShow }) => {
             <XIcon />
           </div>
         </div>
+
         <div
-          style={{
-            height: "calc(100% - 4rem)",
-            overflow: "scroll",
-          }}
-        ></div>
+
+className="d-flex align-items-center gap-4 mt-4"
+>
+<FacebookShareButton url={shareUrl} ><FacebookIcon  size={32} round={true}/></FacebookShareButton>
+<WhatsappShareButton url={shareUrl}><WhatsappIcon size={32} round={true}/></WhatsappShareButton>
+<InstapaperShareButton url={shareUrl}><InstapaperIcon size={32} round={true} /></InstapaperShareButton>
+<TwitterShareButton url={shareUrl}><TwitterIcon size={32} round={true}/></TwitterShareButton>
+</div> 
+      
       </div>
       <div
         className={
@@ -61,3 +78,4 @@ const Share = ({ show = false, setShow }) => {
 };
 
 export default Share;
+{/* */}

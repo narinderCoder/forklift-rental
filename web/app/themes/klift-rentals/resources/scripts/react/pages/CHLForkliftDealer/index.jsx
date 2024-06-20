@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { ChevronRight, PrinterIcon, ShareIcon } from "lucide-react";
-import ProductSlider from "@scripts/react/components/Pages/Homepage/ProductSlider";
 import Trade from "@scripts/react/icons/trade";
 import Finance from "@scripts/react/icons/finance copy";
 import Message from "@scripts/react/icons/message copy";
 import Quote from "@scripts/react/icons/quote";
 import ExpandableCard from "@scripts/react/components/expandable-card";
 import QuoteForm from "@scripts/react/components/quote-form";
-import Share from "@scripts/react/icons/share";
 import Loader from "@scripts/react/components/loader";
 import EnvProvider from '@scripts/react/EnvVar';
 import axios from 'axios';
 import DescriptionExpandableCard from "@scripts/react/components/description-expandable-card";
+import Share from "@scripts/react/components/share";
+import ProductSlider from "@scripts/react/components/product-slider";
 const product = {
   title: "LA Houston",
   images: [
@@ -60,7 +60,7 @@ const CHLForkliftDealer = () => {
      
 
         setSelectedCategories(newData);
-        fetchProducts(s,newData);
+        fetchProducts(s,newData,data1?.id);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -69,19 +69,24 @@ const CHLForkliftDealer = () => {
   }, []);
 
 
-  const fetchProducts = async (cate_slug,cates) => {
+  const fetchProducts = async (cate_slug,cates,productID) => {
     if(cates.length > 0){
     //  const cates = selectedCategories.filter((c) => c > 0);
      const response = await axios.post(`${EnvProvider.baseUrl}products-by-category/${cate_slug}/1`, { 
-       limit:5, 
+       limit:10, 
        categories:cates 
      }); 
      const data1 = response.data;
-     setProducts(data1.data);
+     let filterProducts = data1?.data !== undefined && data1?.data?.length > 0 ? data1?.data.filter((p) =>  p.id !== productID ) : [];
+    //  console.log(product?.id,productID)
+     setProducts(filterProducts);
     }
     
      
  };
+
+
+ 
 
   
   return (
@@ -93,7 +98,7 @@ const CHLForkliftDealer = () => {
       </p>
       <div className="row mb-custom">
         <div className="col-md-5 col-12 mb-custom">
-          <ProductSlider data={product} className="mb-custom col-12 w-100" />
+          <ProductSlider data={product} />
           {
             product?.custom_fields?.youtube_video_url && (
               <iframe
@@ -124,8 +129,8 @@ const CHLForkliftDealer = () => {
             />
             <DealershipButton icon={Trade} title="Value your trade" />
             <DealershipButton icon={Finance} title="Get Financing " />
-            <DealershipButton icon={Message} title="Contact Us" />
-            <DealershipButton icon={PrinterIcon} title="Print" />
+            <DealershipButton icon={Message} title="Contact Us" onClick={() => window.open('/contact-us', '_blank')}/>
+            <DealershipButton icon={PrinterIcon} title="Print" onClick={() =>window.print()}/>
             <DealershipButton
               icon={ShareIcon}
               title="Share"
@@ -140,25 +145,35 @@ const CHLForkliftDealer = () => {
         </div>
       </div>
       <div className="">
-        <h3
-          className="h3"
-          style={{ marginBottom: "2.5rem", overflow: "hidden" }}
-        >
-          Recommendations
-        </h3>
+        {
+          products !== undefined && products.length > 0 && (
+            <h3
+            className="h3"
+            style={{ marginBottom: "2.5rem", overflow: "hidden" }}
+          >
+            Recommendations
+          </h3>
+          )
+        }
+       
         <div className="row g-4">
           {products !== undefined && products.length > 0 && products.map( (p,index) => (
-            <div key={index} className="col-xl-3 col-lg-4 col-md-6 col-12">
-              <div className="p-2">
-                <img
-                  src={p.image}
-                  alt="alt"
-                  className="w-100 h-auto"
-                />
-                {/* <p className="p1">2024</p> */}
-               <a href={p.detail_page_url}><h6 className="h6">{p.name}</h6></a> 
+             <>
+             
+                <div key={index} className="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div className="p-2">
+                  <img
+                    src={p.image}
+                    alt="alt"
+                    className="w-100 h-auto"
+                  />
+                  {/* <p className="p1">2024</p> */}
+                <a href={p.detail_page_url}><h6 className="h6">{p.name}</h6></a> 
+                </div>
               </div>
-            </div>
+             
+            </>
+          
           ))}
         </div>
       </div>
@@ -170,7 +185,7 @@ const CHLForkliftDealer = () => {
         models. Contact dealer for details.
       </p>
       {<QuoteForm show={showQuote} setShow={setShowQuote} product={product} setLoading={setLoading} />}
-      {<Share show={showShare} setShow={setShowShare} />}
+      {<Share show={showShare} setShow={setShowShare} shareUrl={window.location.href}/>}
     </div>
     </>
   );

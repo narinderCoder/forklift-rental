@@ -1,20 +1,24 @@
 import { ChevronDown, Download } from "lucide-react";
-import Share from "../icons/share";
+import ShareIcon from "../icons/share";
 import Checkbox from "./checkbox";
+import { useState } from "react";
+import Share from "./share";
 
 const EngineCard = ({ product,handleComparelist }) => {
+  const [showQuickView, setShowQuickView] = useState(false);
+  const [showShare, setShowShare] = useState(false)
   return (
-    <div className="row">
-      <div className="col-3">
+    <div className="row m-0 gx-4">
+                    <div className="col-md-3 col-12 mb-3 mb-md-0">
         <img
           src={
             product?.image
           }
-          alt="telehandler-forklift"
-          className="h-auto w-100"
+          alt={product.name}
+        className="h-auto w-100 rounded-3"
         />
       </div>
-      <div className="col-7">
+      <div className="col-md-7 col-12">
         <div>
           <h6 className="h6">
            {product.name}
@@ -47,23 +51,36 @@ const EngineCard = ({ product,handleComparelist }) => {
         }  
         </div>
         {product?.attributes?.length > 0 ? (
-          <>    <button className="btn-secondary" style={{ marginTop: "1.5rem" }}>
-          Quick view <ChevronDown size={14} />
+          <>    <button  onClick={() => setShowQuickView(!showQuickView)}  className="btn-secondary" style={{ marginTop: "1.5rem" }}>
+          Quick view <ChevronDown size={14}  style={{
+                  transform: showQuickView ? "rotate(180deg)" : "rotate(0deg)",
+                }} />
         </button></>
         ) : ''}
     
-        <ul className="mt-2 text-opacity-50 ps-4 text-secondary p2">
+    <ul className={`mt-2 text-opacity-50 ps-4 text-secondary p2 ${showQuickView ? "d-block": "d-none"}`}>
             {product?.attributes?.length > 0 ? product.attributes.map((item, index) => (
-                  <li><strong>{item.name}</strong> : {item.info}</li>
-            )): ''}  
+                  <li><strong>{item.title}</strong> : {item.info}</li>
+            )): null}  
         </ul>
       </div>
-      <div className="gap-4 d-flex flex-column col-2">
-        <div className="gap-3 text-opacity-50 d-flex align-items-center text-secondary justify-content-end">
-          <Download />
-          <Share />
+  <div className="col-md-2 col-12">
+  <div className="gap-3 text-opacity-50 d-flex align-items-center text-secondary justify-content-end">
+      {product?.custom_fields?.upload_file !== undefined && product?.custom_fields?.upload_file !== '' && (
+            <Download style={{cursor: "pointer"}} onClick={() => {
+              
+                var a = document.createElement('a');
+                a.href = product?.custom_fields?.upload_file;
+                a.download = product.name; 
+                document.body.appendChild(a);  
+                a.click();  
+                document.body.removeChild(a);
+            }}  />  
+        )}
+       
+          <ShareIcon style={{cursor: "pointer"}} onClick={() => setShowShare(!showShare)} />
         </div>
-        <div className="gap-2 d-flex flex-column">
+        <div className="gap-2 d-flex flex-column mt-4">
          
           {/* <a href={product.detail_page_url}>
           <button
@@ -77,9 +94,10 @@ const EngineCard = ({ product,handleComparelist }) => {
               View Details
             </button>
           </a>
-        </div>
-       
+        
       </div>
+  </div>
+  <Share show={showShare} setShow={setShowShare} shareUrl={`${product.detail_page_url}`} />
     </div>
   );
 };

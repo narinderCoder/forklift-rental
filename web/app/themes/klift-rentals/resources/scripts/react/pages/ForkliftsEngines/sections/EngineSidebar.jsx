@@ -3,6 +3,7 @@ import EnvProvider from '../../../EnvVar';
 import { Minus, Plus } from 'lucide-react';
 import Checkbox from '@scripts/react/components/checkbox';
 import CategoryTree from '../../Products/sections/category-filter';
+import Filters from '@scripts/react/icons/filters';
 // import CategoryTree from './category-filter';
  
 export default function EngineSidebar(props) {
@@ -39,7 +40,7 @@ export default function EngineSidebar(props) {
       }
     };
   
-    const [selectedOption, setSelectedOption] = useState('all-categories');
+    const [selectedOption, setSelectedOption] = useState(0);
     const handleOption = (option) => {
       setSelectedOption(option == selectedOption ? '' : option);
     };
@@ -51,10 +52,13 @@ export default function EngineSidebar(props) {
 
 
   return (
+
+   
     <>
-        <div className="col-lg-4 col-md-6 col-12 d-flex flex-column gap-2">
+        <div className="col-md-4 col-12 d-flex flex-column gap-2">
             <div className="d-flex align-items-center justify-content-between">
               <div className="text-secondary text-opacity-50 d-flex gap-2 align-items-center">
+                <Filters />
                 <p className="p1">Filters</p>
               </div>
               <p className="p3 text-primary text-opacity-80">Clear Filters</p>
@@ -62,62 +66,65 @@ export default function EngineSidebar(props) {
     {categories !== undefined && categories && categories.length > 0 ? categories.map((parent, index) => (      
      <div className="position-relative">
         <button
-          onClick={() => handleOption('all-categories')}
+          onClick={() => handleOption(parseInt(index))}
           className={
             'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
           }
           style={{ padding: '0.75rem', gap: '0.5rem' }}
         >
           <p className="text-opacity-50 text-secondary">{parent.name}</p>
-          {selectedOption === 0 ? (
+          {selectedOption === parseInt(index) ? (
             <Minus className="text-opacity-50 text-secondary" />
           ) : (
             <Plus className="text-opacity-50 text-secondary" />
           )}
         </button>
        
-        <div
-          className={`filter-options open`}
-        >
-          {parent.children !== undefined && parent.children.length > 0
-            ? parent.children.map((category, index) => (
-                <>
-                  {/* <Checkbox name={category.id} label={category.name} /> */}
-                  <button
-                    onClick={() => handleSubOption(parseInt(category.id))}
-                    className={
-                      'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
-                    }
-                    style={{ padding: '0.75rem', gap: '0.5rem' }}
-                  >
-                    <p className="text-opacity-50 text-secondary">
-                      {category.name}
-                    </p>
-                    {selectedSubOption === parseInt(category.id) ? (
-                      <Minus className="text-opacity-50 text-secondary" />
+        <div className={`filter-options ${
+                                selectedOption === parseInt(index) ? 'open' : ''
+                              }`} > 
+
+          {parent.children !== undefined && parent.children.length > 0 ? (
+              <>
+                  {parent.children !== undefined && parent.children.length > 0 && parent.children.map((category, index) => (
+                  <>  
+                    {category?.children && category?.children.length > 0 ? (
+                       <>
+                            <button
+                            onClick={() => handleSubOption(parseInt(category.id))}
+                            className={
+                              'd-flex align-items-center justify-content-between w-100 bg-5 rounded-3'
+                            }
+                            style={{ padding: '0.75rem', gap: '0.5rem' }}
+                            >
+                            <p className="text-opacity-50 text-secondary">
+                              {category.name}
+                            </p>
+                            {selectedSubOption === parseInt(category.id) ? (
+                              <Minus className="text-opacity-50 text-secondary" />
+                            ) : (
+                              <Plus className="text-opacity-50 text-secondary" />
+                            )}
+                            </button> 
+                          <div className={`filter-options ${
+                                selectedSubOption === parseInt(category.id) ? 'open' : ''
+                              }`} > 
+                            <CategoryTree categories={category.children}  handleSubOptions={props.handleSubOptions} selectedCategories={props.selectedCategories}/>
+                          </div>
+                       </>
                     ) : (
-                      <Plus className="text-opacity-50 text-secondary" />
+                      <Checkbox name={'category'} label={category.name} onChange={props.handleSubOptions} val={category.id}/>
                     )}
-                  </button>
-                  {category?.children && category?.children.length > 0 && (
-                    <div
-                        className={`filter-options ${
-                          selectedSubOption === parseInt(category.id) ? 'open' : ''
-                        }`}
-                      > 
-                       <CategoryTree categories={category.children}  handleSubOptions={props.handleSubOptions} selectedCategories={props.selectedCategories}/>
-                    </div>
-                  )}
-                </>
-              ))
-            : ''}
+                  </>
+                ))}
+              </>
+          ):(
+                 <> <Checkbox name={'category'} label={parent.name} onChange={props.handleSubOptions} val={parent.id}/></>
+          )}
         </div>
         </div>
       ))
-       
-     
        : ''}
-      
         </div>
     </>
   )

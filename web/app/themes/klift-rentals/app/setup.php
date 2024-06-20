@@ -171,3 +171,6 @@ add_theme_support('wc-product-gallery-slider');
 //         'ajax_url' => admin_url('admin-ajax.php')
 //     ]);
 // });
+
+
+
