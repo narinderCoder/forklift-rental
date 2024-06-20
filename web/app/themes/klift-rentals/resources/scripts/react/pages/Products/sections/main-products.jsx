@@ -57,7 +57,7 @@ const handleRemoveCompare = (product) => {
       <div className="flex-lg-row flex-column my-4 my-xl-0 justify-content-between w-100 d-flex align-items-lg-center">
         <input placeholder="Search" className="search-input" onChange={(e) => handleSearch(e)}/>
 
-        <button className="text-white btn-secondary bg-primary" onClick={() => setCompareModel(true)}>
+        <button className="text-white btn-secondary bg-primary" disabled={compareList.length == 0} onClick={() => {setCompareModel(true); setShowCompareProducts(true)}}>
           Compare Products ({compareList.length})
         </button>
       </div>
@@ -105,12 +105,19 @@ const handleRemoveCompare = (product) => {
         showModal={compareModelShow}
         setShowModal={setCompareModel}
         clearProducts={() => setCompareList([])}
-        onShow={() => {
-          setCompareModel(false);
-          setShowCompareProducts(true);
-        }}
+        // onShow={() => {
+        //   setCompareModel(false);
+        //   setShowCompareProducts(true);
+        // }}
       >
-        <div className="row g-4 m-0 p-0">
+          <CompareProducts
+        show={showCompareProducts}
+        setShow={setShowCompareProducts}
+        products={compareList}
+        removeProduct={() => {}}
+        onAdd={() => setCompareModel(true)}
+      />
+        {/* <div className="row g-4 m-0 p-0">
           {compareList.length > 0 && compareList.map((p, index) => (
            <div  key={index} className="col-lg-3 col-md-4 col-sm-6 col-12">
              <div
@@ -139,16 +146,10 @@ const handleRemoveCompare = (product) => {
             </div>
            </div>
           ))}
-        </div>
+        </div> */}
       </CompareModal>
 
-      <CompareProducts
-        show={showCompareProducts}
-        setShow={setShowCompareProducts}
-        products={compareList}
-        removeProduct={() => {}}
-        onAdd={() => setCompareModel(true)}
-      />
+    
     </div>
 
 

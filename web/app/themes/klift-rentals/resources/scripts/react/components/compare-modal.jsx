@@ -7,7 +7,7 @@ const CompareModal = ({
   showModal,
   setShowModal,
   clearProducts,
-  onShow,
+  // onShow,
 }) => {
   const ref = useRef(null);
 
@@ -43,12 +43,12 @@ const CompareModal = ({
             <p className="p1">You can compare upto 4 products</p>
           </div>
           <div className="gap-2 d-flex mb-2 mb-md-0">
-            <button
+            {/* <button
               className="text-white btn-secondary bg-primary"
               onClick={onShow}
             >
               Show Compare
-            </button>
+            </button> */}
             <button className="btn-secondary" onClick={clearProducts}>
               Clear Products
             </button>
@@ -60,8 +60,7 @@ const CompareModal = ({
             onClick={() => setShowModal(false)}
           />
         </div>
-        <hr className="my-2" />
-        <div className="overflow-scroll compare-modal-data">{children}</div>
+        <div className="overflow-scroll2 compare-modal-data">{children}</div>
       </div>
       <div
         className={`${

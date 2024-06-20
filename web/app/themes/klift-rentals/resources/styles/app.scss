@@ -225,6 +225,11 @@ body {
   @media (max-width: 768px) {
     font-size: 10px;
   }
+
+  &:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .line-clamp-1 {
@@ -659,10 +664,12 @@ input.react-date-picker__inputGroup__year {
 }
 
 .compare-modal {
-  height: 95vh;
+  height: 90vh;
 
   .compare-modal-data {
+    margin-top: 36px;
     height: 75vh;
+    overflow: scroll;
     @media (max-width: 768px) {
       height: 65vh;
     }
@@ -670,6 +677,66 @@ input.react-date-picker__inputGroup__year {
       height: 60vh;
     }
   }
+}
+
+.compare-custom-container{
+  width: 100%;
+  display: inline-flex;
+  .compare-left-fixed-item{
+    width: 200px; 
+    
+  }
+   
+  .compare-right-items-container{
+    display: flex;
+    width: calc(100% - 200px);  
+    overflow-y :hidden; 
+    scrollbar-width: thin;
+    ul{
+      list-style: none;
+      display: inline-flex;
+      padding:0;
+      li{
+         width: 250px; 
+         min-height: 300px;
+         
+      }
+    } 
+  }
+
+  .compare-product{
+    width: calc(100% - 10px);
+    border: 1px solid #E2E2E2;
+    background: #fff;
+    border-radius: 3px;
+    margin: 5px;
+      h4{
+        height: 100px;
+        padding: 15px 20px;
+        font-size: 17px;
+        line-height: 23px;
+      }
+      .compare-img-container{
+        height: 180px;
+        padding: 20px;
+        img {
+          height: 100%;
+          width: auto;
+        }
+      }
+      .compare-th{
+        text-align: left !important;
+        font-weight: bold;
+        padding:10px; 
+        height: 50px;
+        &:nth-child(even) {
+          background: #F8F8F8;
+        }
+      }
+    
+  }
+
+    
 }
 
 .compare-product-spec-name {
