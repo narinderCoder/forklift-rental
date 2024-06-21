@@ -7,6 +7,32 @@ import Share from "./share";
 const CatalogueCard = ({ product,handleComparelist }) => {
   const [showQuickView, setShowQuickView] = useState(false);
   const [showShare, setShowShare] = useState(false)
+
+ 
+
+ // Function to get unique rental types with minimum prices
+const getUniqueRentalTypesWithMinPrices = (variations) => {
+  const typePriceMap = {};
+
+  variations.forEach(variation => {
+      const type = variation.attributes.attribute_pa_rental_type;
+      const price = variation.price;
+
+      if (!typePriceMap[type] || price < typePriceMap[type]) {
+          typePriceMap[type] = price;
+      }
+  });
+
+  return Object.keys(typePriceMap).map(type => ({
+      attribute_pa_rental_type: type,
+      price: typePriceMap[type]
+  }));
+};
+
+// Get the unique rental types with minimum prices
+const uniqueRentalTypesWithMinPrices = getUniqueRentalTypesWithMinPrices(product?.variations);
+
+ 
   return (
     <div className="row m-0 p-0">
       <div className="col-md-3 col-12">
@@ -32,11 +58,11 @@ const CatalogueCard = ({ product,handleComparelist }) => {
           style={{ marginTop: "1rem" }}
         >
         {product.isVariable ? 
-            (product.variations && product.variations.map((variation, index) => (
+            (product.variations && uniqueRentalTypesWithMinPrices.map((variation, index) => (
                     <>
                       <div>
                         <p className="p1 text-center text-uppercase" style={{ opacity: 0.8 }}>
-                          {variation?.attributes?.attribute_pa_rental_type}
+                          {variation?.attribute_pa_rental_type}
                         </p>
                         
                         <h6 dangerouslySetInnerHTML={{ __html: variation?.price }}></h6>

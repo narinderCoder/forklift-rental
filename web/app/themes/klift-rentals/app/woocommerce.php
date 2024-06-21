@@ -19,7 +19,11 @@ function custom_ajax_add_to_cart() {
         global $woocommerce;
         $cart_item_key = $woocommerce->cart->add_to_cart($product_id,$quantity,$variation_id);
         if ($cart_item_key) {
-            $response = array('success' => true, 'message' => 'Product variation added to cart!');
+            WC()->cart->cart_contents[$cart_item_key]['custom_data'] = [
+                'start_date' => 'test'
+            ];
+
+            $response = array('success' => true, 'message' => 'Product variation added to cart!','arr' => WC()->cart);
         } else {
             $response = array('success' => false, 'message' => 'Failed to add product variation to cart2.');
         }
@@ -40,9 +44,7 @@ function custom_ajax_update_cart_item_quantity() {
     // Ensure the script is being run within WordPress and WooCommerce context
     if (!defined('ABSPATH') || !function_exists('WC')) {
         wp_die();
-    }
- 
-
+    } 
     // Retrieve the cart item key and the new quantity from the AJAX request
     $cart_item_key = isset($_REQUEST['cart_item_key']) ? sanitize_text_field($_REQUEST['cart_item_key']) : '';
     $quantity = isset($_REQUEST['quantity']) ? intval($_REQUEST['quantity']) : 0;
@@ -64,6 +66,9 @@ function custom_ajax_update_cart_item_quantity() {
             $response = array('success' => true, 'message' => 'Cart item removeed successfully!'); 
     }elseif($type == 'add' && isset($cart[$cart_item_key])) {  
             WC()->cart->set_quantity($cart_item_key, $quantity, true);  
+            WC()->cart->cart_contents[$cart_item_key]['custom_data'] = [
+                'start_date' => 'test'
+            ];
             $response = array('success' => true, 'message' => 'Cart item quantity updated!'); 
     } 
     // Send the response back to the AJAX request

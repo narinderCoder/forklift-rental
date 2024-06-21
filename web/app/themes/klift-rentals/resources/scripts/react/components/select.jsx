@@ -1,6 +1,6 @@
 import ReactSelect from "react-select";
 
-const Select = ({ options, placeholder, onChange }) => {
+const Select = ({ options, placeholder, onChange, containerClass = "", value }) => {
   return (
     <ReactSelect
       options={options}
@@ -16,9 +16,11 @@ const Select = ({ options, placeholder, onChange }) => {
           state.menuIsOpen
             ? "select-product-menu w-100 p1 rounded-2 rounded-bottom-0"
             : "select-product-menu w-100 p1 rounded-2",
+        container: () => `${containerClass}`
       }}
       placeholder={placeholder}
       onChange={onChange}
+      value={value}
     />
   );
 };

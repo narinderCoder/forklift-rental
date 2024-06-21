@@ -668,3 +668,34 @@ function create_company_taxonomy() {
 }
 
 add_action('init', 'create_company_taxonomy', 0);
+
+
+
+
+add_filter('woocommerce_add_cart_item_data', 'add_custom_data_to_cart_item', 10, 3);
+function add_custom_data_to_cart_item($cart_item_data, $product_id, $variation_id) {
+    $cart_item_data['custom_data'] = [
+        'start_date' => 'test'
+    ];
+    return $cart_item_data;
+}
+
+
+add_action('woocommerce_checkout_create_order_line_item', 'save_custom_data_in_order_item', 10, 4);
+function save_custom_data_in_order_item($item, $cart_item_key, $values, $order) {
+    if(isset($values['custom_data'])) {
+        $item->add_meta_data('_custom_data', $values['custom_data']);
+    }
+}
+
+
+add_filter('woocommerce_rest_prepare_order_line_item_object', 'add_custom_data_to_rest_api', 10, 3);
+function add_custom_data_to_rest_api($response, $item, $request) {
+    $custom_data = $item->get_meta('_custom_data');
+   // if (!empty($custom_data)) {
+        $response->data['custom_data'] = $custom_data;
+   // }
+    return $response;
+}
+
+ 

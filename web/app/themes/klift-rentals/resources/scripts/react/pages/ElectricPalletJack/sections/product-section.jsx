@@ -3,6 +3,7 @@ import ExpandableCard from "../../../components/expandable-card";
 import Rating from "../../../components/rating";
 import ProductSlider from "@scripts/react/components/product-slider";
 import DescriptionExpandableCard from "@scripts/react/components/description-expandable-card";
+import { ChevronDown } from "lucide-react";
 
 const ProductSection = ({
   product,
@@ -49,22 +50,32 @@ const ProductSection = ({
                     </div>
                     <div className="flex-row gap-5 justify-content-start d-flex align-items-center" style={{ gap: '1.25rem' }}>
                       <div className="flex-row w-100 justify-content-between align-items-center d-flex">
-                        {attr.values.map((a) => (
+                        {/* {attr.values.map((a) => (
                           <div className="form-check" key={a}>
                             <input
                               className="form-check-input"
                               type="radio"
-                              id={`variation${a}`}
-                              value={a}
+                              id={`variation${a?.slug}`}
+                              value={a?.slug}
                               name={attr.name}
                               onChange={(e) => handleRadio(attr.name, e)}
-                              checked={isChecked(attr.name, a)}
+                              checked={isChecked(attr.name, a?.slug)}
                             />
-                            <label className="form-check-label" htmlFor={`variation${a}`}>
+                            <label className="form-check-label" htmlFor={`variation${a?.slug}`}>
                               {a}
                             </label>
                           </div>
-                        ))}
+                        ))} */}
+
+                        <div className='position-relative w-100'>
+                         <select className="w-100 custom-select" onChange={(e) => handleRadio(attr?.name, e)}>
+                          {attr?.values &&
+                            attr?.values.map((a, k) => (
+                             <> <option value={a?.slug} selected={isChecked(attr.name, a.slug)}>{a?.name}</option> </>
+                            ))}
+                          </select>
+                          <ChevronDown className="position-absolute" style={{top: "16px", right: "8px"}} />
+                         </div>
                       </div>
                     </div>
                   </div>

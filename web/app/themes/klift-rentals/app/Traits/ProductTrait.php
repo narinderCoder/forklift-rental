@@ -444,6 +444,7 @@ public function getProduct($product_id){
                             'value' => $value,
                             'slug' => $str,
                             'id' => $variation['variation_id'],
+                            'attributes' => $variation_obj->get_attributes(),
                         ];
                     }
              
@@ -477,13 +478,29 @@ public function getProduct($product_id){
             $attribute_label = wc_attribute_label($attr); 
             if ( isset( $attributes[ $attr ] ) || isset( $attributes[ 'pa_' . $attr ] ) ) { 
                 $attribute = isset( $attributes[ $attr ] ) ? $attributes[ $attr ] : $attributes[ 'pa_' . $attr ]; 
+                $attribute_id = isset($attr_deets['id']) ? $attr_deets['id'] : (isset($attr_deets['attribute_id']) ? $attr_deets['attribute_id'] : null);
                 if ( $attribute['is_taxonomy'] ) {
-                    $values = implode( ', ', wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'names' ) ) ); 
+                    $namess = implode( ', ', wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'names' ) ) ); 
+                    // $keys = implode( ', ', wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'name' ) ) ); 
+
+                    $slugs = wc_get_product_terms($product->id, $attribute['name'], array('fields' => 'slugs')); 
+                    $names = wc_get_product_terms($product->id, $attribute['name'], array('fields' => 'names')); 
+        
+                    // Combine slugs and names into an associative array
+                    $values = [];
+                    foreach ($slugs as $slug_key => $slug_value) {
+                       $values[] = [
+                        'name' => $names[$slug_key],
+                        'slug' => $slug_value
+                       ];
+                    }
+                    // preg_split('/\s*[,|]\s*/', $values),//explode(' | ',$values),
                     $formatted_attributes[]=[
                         'title' => $attribute_label, 
-                        'info' => $values,
-                        'values' => preg_split('/\s*[,|]\s*/', $values),//explode(' | ',$values),
+                        'info' => $namess,
+                        'values' =>  $values,
                         'name' => $attribute['name'],
+                        'attribute_id' => $attribute_id,
                         'type' => 0
                     ];
                         
@@ -493,6 +510,7 @@ public function getProduct($product_id){
                         'info' => $attribute['value'],
                         'values' =>  preg_split('/\s*[,|]\s*/', $attribute['value']),
                         'title' => $attribute['name'],
+                        'attribute_id' => $attribute_id,
                         'type' => 1
                     ];
                 }

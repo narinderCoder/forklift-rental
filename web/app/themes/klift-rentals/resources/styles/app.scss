@@ -527,6 +527,11 @@ body {
   }
 }
 
+.custom-select {
+  appearance: none;
+  padding: 15px;
+}
+
 .select-product-menu-electric {
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -697,7 +702,7 @@ input.react-date-picker__inputGroup__year {
       display: inline-flex;
       padding:0;
       li{
-         width: 250px; 
+         width: 300px; 
          min-height: 300px;
          
       }
@@ -729,6 +734,7 @@ input.react-date-picker__inputGroup__year {
         font-weight: bold;
         padding:10px; 
         height: 50px;
+        line-height: 31px;
         &:nth-child(even) {
           background: #F8F8F8;
         }

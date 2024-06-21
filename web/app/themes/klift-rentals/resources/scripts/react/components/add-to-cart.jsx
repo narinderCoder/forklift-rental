@@ -6,14 +6,22 @@ export default function AddToCart({
     productId, 
     variationId,
     options,
-    type=1
+    type=1,
+    isRental=false
 }) {
 
 const [qty,setQty]=useState(1);
      
     const addProductToCart = async () => {
         setLoading(true);
+
+        let rental = isRental ? true : true;
+
+
         try {
+          if(!rental){
+            alert('Please Add Information');
+          }else{
           //  const nonce = await getNonce();
             const response = await axios.post(`${EnvProvider.ajaxUrl}?action=custom_add_to_cart&product_id=${productId}&variation_id=${variationId}&quantity=${qty}`, {
                 
@@ -36,7 +44,7 @@ const [qty,setQty]=useState(1);
             }else{
                 alert(response.data.message);
             }
-        
+        }
              setLoading(false);
         } catch (error) {
             console.error(error);
@@ -76,8 +84,6 @@ const [qty,setQty]=useState(1);
                 </button>
           </div>
        )}
-    
     </>
-   
   )
 }
